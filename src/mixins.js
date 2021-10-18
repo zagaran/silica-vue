@@ -8,3 +8,7 @@ Object.values(Mixins).forEach(mixin => {
   // globally registers components with the Vue instance so they can be used anywhere
   Vue.mixin(mixin);
 });
+
+export default {
+  Mixins
+};

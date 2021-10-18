@@ -7,6 +7,7 @@ import {
 import { entry as CustomTextRenderer } from "@/components/CustomTextRenderer.vue";
 import DjangoSilicaFormLite from "@/components/django-silica-form-lite.vue";
 import DjangoSilicaForm from "@/components/django-silica-form.vue";
+import Mixins from "@/mixins.js";
 const exportComponents = { DjangoSilicaFormLite, DjangoSilicaForm };
 
 const rendererEntries = [...vanillaRenderers];
@@ -78,5 +79,6 @@ export default {
   customRenderers: customRenderers,
   defaultStyles,
   bootstrapStyles,
-  mergeStyles
+  mergeStyles,
+  mixins: Mixins
 };
