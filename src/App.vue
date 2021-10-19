@@ -20,16 +20,49 @@ import { JsonForms, JsonFormsChangeEvent } from "@jsonforms/vue2";
 import {
   defaultStyles,
   mergeStyles,
+  Styles,
   vanillaRenderers
 } from "@jsonforms/vue2-vanilla";
 import { entry as CustomTextRenderer } from "@/components/CustomTextRenderer.vue";
+import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
+import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
+
+type CustomStyles = Styles & {
+  categorization: {
+    label: string;
+    root: string;
+    item: string;
+    selector: string;
+    activeCategory?: string;
+  };
+  category: {
+    label: string;
+    root: string;
+    item: string;
+  };
+};
 
 // mergeStyles combines all classes from both styles definitions
-const myStyles = mergeStyles(defaultStyles, { control: { label: "mylabel" } });
+const myStyles = mergeStyles(defaultStyles, {
+  categorization: {
+    label: "categorization-label",
+    root: "categorization-root",
+    item: "categorization-item",
+    selector: "btn",
+    activeCategory: "btn btn-red"
+  },
+  category: {
+    label: "category-label",
+    root: "category-root",
+    item: "category-item"
+  }
+} as CustomStyles);
 
 const renderers = [
   ...vanillaRenderers,
-  CustomTextRenderer
+  CustomTextRenderer,
+  CategorizationRenderer,
+  CategoryRenderer
   // here you can add custom renderers
 ];
 
@@ -109,6 +142,39 @@ const uischema = {
         {
           type: "Control",
           scope: "#/properties/recurrenceInterval"
+        }
+      ]
+    },
+    {
+      type: "Categorization",
+      elements: [
+        {
+          type: "Category",
+          label: "Personal Data",
+          elements: [
+            {
+              type: "Control",
+              scope: "#/properties/name"
+            },
+            {
+              type: "Control",
+              scope: "#/properties/description"
+            }
+          ]
+        },
+        {
+          type: "Category",
+          label: "Other",
+          elements: [
+            {
+              type: "Control",
+              scope: "#/properties/dueDate"
+            },
+            {
+              type: "Control",
+              scope: "#/properties/rating"
+            }
+          ]
         }
       ]
     }

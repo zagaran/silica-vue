@@ -4,7 +4,7 @@
       :loaderPrefix="loaderPrefix"
       :customRenderers="customRenderers"
       :styles="styles"
-      :ref="id"
+      :ref="id + '-form'"
     />
     <button type="submit" :class="submitClass || null">{{ submitText }}</button>
   </form>
@@ -34,7 +34,7 @@ export default {
     getFormData() {
       return this.$refs[this.id].data;
     }
-  },
+  }
 };
 </script>
 

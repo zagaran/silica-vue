@@ -5,12 +5,18 @@ import {
   vanillaRenderers
 } from "@jsonforms/vue2-vanilla";
 import { entry as CustomTextRenderer } from "@/components/CustomTextRenderer.vue";
+import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
+import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
 import DjangoSilicaFormLite from "@/components/django-silica-form-lite.vue";
 import DjangoSilicaForm from "@/components/django-silica-form.vue";
 import Mixins from "@/mixins.js";
 const exportComponents = { DjangoSilicaFormLite, DjangoSilicaForm };
 
-const rendererEntries = [...vanillaRenderers];
+const rendererEntries = [
+  ...vanillaRenderers,
+  CategorizationRenderer,
+  CategoryRenderer
+];
 const customRendererEntries = [CustomTextRenderer];
 
 const bootstrapStyles = {
@@ -56,6 +62,18 @@ const bootstrapStyles = {
   },
   label: {
     root: "label-element"
+  },
+  categorization: {
+    label: "categorization-label",
+    root: "categorization-root",
+    item: "categorization-item",
+    selector: "btn",
+    activeCategory: "btn btn-info"
+  },
+  category: {
+    label: "category-label",
+    root: "category-root",
+    item: "category-item"
   }
 };
 
