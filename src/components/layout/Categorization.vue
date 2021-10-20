@@ -6,6 +6,7 @@
     <div>
       <button
         v-for="element in layout.uischema.elements"
+        type="button"
         :key="element.label"
         @click="() => setActiveCategory(element)"
         :class="

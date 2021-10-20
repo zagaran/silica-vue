@@ -1,6 +1,5 @@
 <template>
   <json-forms
-    :ref="id + '-form-body'"
     :data="data"
     :renderers="formRenderers"
     :schema="schema"
@@ -11,18 +10,17 @@
 
 <script>
 import { JsonForms } from "@jsonforms/vue2";
-import { vanillaRenderers } from "@jsonforms/vue2-vanilla";
+import { defaultStyles, vanillaRenderers } from "@jsonforms/vue2-vanilla";
 import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
 import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
 
 export default {
-  name: "django-silica-form-lite",
+  name: "django-silica-form-body",
   components: { JsonForms },
   props: {
-    loaderPrefix: { type: String, required: true },
-    styles: { type: Object, required: true },
     id: { type: String, required: true },
     customRenderers: { type: Array, required: false },
+    styles: { type: Object, required: false },
     onChange: { type: Function, required: false }
   },
   data: function() {
@@ -34,19 +32,19 @@ export default {
   },
   provide() {
     return {
-      styles: this.styles
+      styles: this.styles || window.SilicaVueStyles || defaultStyles
     };
   },
   mounted() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
     this.data = JSON.parse(
-      document.getElementById(this.loaderPrefix + "-data").textContent
+      document.getElementById(this.id + "-data").textContent
     );
     this.uischema = JSON.parse(
-      document.getElementById(this.loaderPrefix + "-ui-schema").textContent
+      document.getElementById(this.id + "-ui-schema").textContent
     );
     this.schema = JSON.parse(
-      document.getElementById(this.loaderPrefix + "-schema").textContent
+      document.getElementById(this.id + "-schema").textContent
     );
   },
   methods: {
@@ -59,11 +57,18 @@ export default {
   },
   computed: {
     formRenderers: function() {
-      return Object.freeze(
-        [...vanillaRenderers, CategorizationRenderer, CategoryRenderer].concat(
-          this.customRenderers
-        )
-      );
+      let renderers = [
+        ...vanillaRenderers,
+        CategorizationRenderer,
+        CategoryRenderer
+      ];
+      if (this.customRenderers) {
+        renderers = renderers.concat(this.customRenderers);
+      }
+      if (window.SilicaVueCustomRenderers) {
+        renderers = renderers.concat(window.SilicaVueCustomRenderers);
+      }
+      return Object.freeze(renderers);
     }
   }
 };

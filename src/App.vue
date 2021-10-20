@@ -23,7 +23,7 @@ import {
   Styles,
   vanillaRenderers
 } from "@jsonforms/vue2-vanilla";
-import { entry as CustomTextRenderer } from "@/components/CustomTextRenderer.vue";
+import { entry as CustomTextRenderer } from "@/components/controls/CustomTextRenderer.vue";
 import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
 import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
 

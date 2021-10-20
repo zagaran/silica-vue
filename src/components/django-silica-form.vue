@@ -1,34 +1,63 @@
 <template>
-  <form @submit="handleSubmit || null" :id="id" v-bind="formAttrs || {}">
-    <django-silica-form-lite
-      :loaderPrefix="loaderPrefix"
+  <form
+    v-on:submit="handleSubmit"
+    :id="id"
+    :action="action"
+    :method="method"
+    v-bind="formAttrs || {}"
+  >
+    <slot name="pre-body"></slot>
+    <django-silica-form-body
       :customRenderers="customRenderers"
       :styles="styles"
-      :ref="id + '-form'"
+      :id="id"
+      :ref="id"
     />
-    <button type="submit" :class="submitClass || null">{{ submitText }}</button>
+    <slot name="post-body"></slot>
+    <input
+      v-if="csrfTokenValue"
+      type="hidden"
+      name="csrftoken"
+      :value="csrfTokenValue"
+    />
+    <button type="submit" :class="submitClass || null">
+      {{ submitText || "Submit" }}
+    </button>
   </form>
 </template>
 
 <script>
-import DjangoSilicaFormLite from "./django-silica-form-lite";
+import DjangoSilicaFormBody from "@/components/django-silica-form-body.vue";
+import Cookies from "js-cookie";
 
 export default {
   name: "django-silica-form",
-  components: { DjangoSilicaFormLite },
+  components: { DjangoSilicaFormBody },
   /* 
     Django loads data to JS by creating a script element with an id; we have to read that data in, hence why we are
     passing id strings rather than raw data
    */
   props: {
-    loaderPrefix: { type: String, required: true },
-    customRenderers: { type: Array, required: true },
-    submitText: { type: String, required: true },
-    submitClass: String,
     id: { type: String, required: true },
-    styles: { type: Object, required: true },
-    handleSubmit: Function,
-    formAttrs: Object
+    submitText: { type: String, required: false },
+    customRenderers: { type: Array, required: false },
+    styles: { type: Object, required: false },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    handleSubmit: { type: Function, default: () => {} },
+    submitClass: String,
+    formAttrs: Object,
+    method: String,
+    action: String,
+    csrfToken: String
+  },
+  computed: {
+    csrfTokenValue() {
+      if (this.csrfToken) {
+        return this.csrfToken;
+      } else {
+        return Cookies.get("csrftoken");
+      }
+    }
   },
   methods: {
     getFormData() {
