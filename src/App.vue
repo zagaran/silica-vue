@@ -26,6 +26,7 @@ import {
 import { entry as CustomTextRenderer } from "@/components/controls/CustomTextRenderer.vue";
 import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
 import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
+import { entry as CustomArrayListElement } from "@/components/layout/CustomArrayListRenderer.vue";
 
 type CustomStyles = Styles & {
   categorization: {
@@ -62,121 +63,51 @@ const renderers = [
   ...vanillaRenderers,
   CustomTextRenderer,
   CategorizationRenderer,
-  CategoryRenderer
+  CategoryRenderer,
+  CustomArrayListElement
   // here you can add custom renderers
 ];
 
 const schema = {
   properties: {
-    name: {
-      type: "string",
-      minLength: 1,
-      description: "The task's name"
-    },
-    description: {
-      title: "Long Description",
-      type: "string",
-      customComponentName: "CustomTextRenderer"
-    },
-    done: {
-      type: "boolean"
-    },
-    dueDate: {
-      type: "string",
-      format: "date",
-      description: "The task's due date"
-    },
-    rating: {
-      type: "integer",
-      maximum: 5
-    },
-    recurrence: {
-      type: "string",
-      enum: ["Never", "Daily", "Weekly", "Monthly"]
-    },
-    recurrenceInterval: {
-      type: "integer",
-      description: "Amount of days until recurrence"
+    comments: {
+      type: "array",
+      customComponentName: "CustomArrayRenderer",
+      items: {
+        type: "object",
+        properties: {
+          date: {
+            type: "string",
+            format: "date"
+          },
+          message: {
+            type: "string",
+            maxLength: 5
+          },
+          enum: {
+            type: "string",
+            enum: ["foo", "bar"]
+          },
+          title: {
+            const: "title",
+            default: "title"
+          }
+        }
+      }
     }
   }
 };
 
 const uischema = {
-  type: "z",
+  type: "VerticalLayout",
   elements: [
     {
-      type: "VerticalLayout",
-      elements: [
-        {
-          type: "Control",
-          scope: "#/properties/name"
-        },
-        {
-          type: "Control",
-          scope: "#/properties/description",
-          options: {
-            multi: true
-          }
-        },
-        {
-          type: "Control",
-          scope: "#/properties/done"
-        }
-      ]
-    },
-    {
-      type: "VerticalLayout",
-      elements: [
-        {
-          type: "Control",
-          scope: "#/properties/dueDate"
-        },
-        {
-          type: "Control",
-          scope: "#/properties/rating"
-        },
-        {
-          type: "Control",
-          scope: "#/properties/recurrence"
-        },
-        {
-          type: "Control",
-          scope: "#/properties/recurrenceInterval"
-        }
-      ]
-    },
-    {
-      type: "Categorization",
-      elements: [
-        {
-          type: "Category",
-          label: "Personal Data",
-          elements: [
-            {
-              type: "Control",
-              scope: "#/properties/name"
-            },
-            {
-              type: "Control",
-              scope: "#/properties/description"
-            }
-          ]
-        },
-        {
-          type: "Category",
-          label: "Other",
-          elements: [
-            {
-              type: "Control",
-              scope: "#/properties/dueDate"
-            },
-            {
-              type: "Control",
-              scope: "#/properties/rating"
-            }
-          ]
-        }
-      ]
+      type: "Control",
+      scope: "#/properties/comments",
+      options: {
+        childLabelProp: "title",
+        defaultTitle: "default"
+      }
     }
   ]
 };
