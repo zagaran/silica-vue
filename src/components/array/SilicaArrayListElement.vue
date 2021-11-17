@@ -32,13 +32,14 @@
   </div>
 </template>
 
+<!-- TODO: make this work with typescript -->
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
-import { CompType } from "@jsonforms/vue2-vanilla/lib/config/vue";
-import { classes, Styles } from "@jsonforms/vue2-vanilla";
+import {classes, Styles} from "@jsonforms/vue2-vanilla";
+import {CompType} from "@jsonforms/vue2/lib/config";
 
 const listItem = defineComponent({
-  name: "custom-array-list-element",
+  name: "silica-array-list-element",
   props: {
     initiallyExpanded: {
       required: false,
@@ -105,14 +106,20 @@ const listItem = defineComponent({
     },
     moveUpClicked(event: Event): void {
       event.stopPropagation();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.moveUp?.();
     },
     moveDownClicked(event: Event): void {
       event.stopPropagation();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.moveDown?.();
     },
     deleteClicked(event: Event): void {
       event.stopPropagation();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.delete?.();
     }
   }

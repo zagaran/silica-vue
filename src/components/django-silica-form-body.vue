@@ -10,9 +10,8 @@
 
 <script>
 import { JsonForms } from "@jsonforms/vue2";
-import { defaultStyles, vanillaRenderers } from "@jsonforms/vue2-vanilla";
-import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
-import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
+import { defaultStyles } from "@jsonforms/vue2-vanilla";
+import { silicaRenderers } from "./renderers";
 
 export default {
   name: "django-silica-form-body",
@@ -57,11 +56,7 @@ export default {
   },
   computed: {
     formRenderers: function() {
-      let renderers = [
-        ...vanillaRenderers,
-        CategorizationRenderer,
-        CategoryRenderer
-      ];
+      let renderers = [...silicaRenderers];
       if (this.customRenderers) {
         renderers = renderers.concat(this.customRenderers);
       }

@@ -12,13 +12,12 @@
         {{ control.label }}
       </label>
     </legend>
-    <h1>test</h1>
     <div
       v-for="(element, index) in control.data"
       :key="`${control.path}-${index}`"
       :class="styles.arrayList.itemWrapper"
     >
-      <custom-array-list-element
+      <silica-array-list-element
         :moveUp="moveUp(control.path, index)"
         :moveUpEnabled="index > 0"
         :moveDown="moveDown(control.path, index)"
@@ -26,7 +25,6 @@
         :delete="removeItems(control.path, [index])"
         :label="childLabelForIndex(index)"
         :styles="styles"
-        :default-title="control.uischema.options.defaultTitle"
       >
         <dispatch-renderer
           :schema="control.schema"
@@ -36,7 +34,7 @@
           :renderers="control.renderers"
           :cells="control.cells"
         />
-      </custom-array-list-element>
+      </silica-array-list-element>
     </div>
     <div v-if="noData" :class="styles.arrayList.noData">
       No data
@@ -48,34 +46,31 @@
 import {
   composePaths,
   createDefaultValue,
-  JsonFormsRendererRegistryEntry,
   rankWith,
-  ControlElement,
   schemaTypeIs,
   and,
-  JsonSchema,
-  schemaMatches
+  schemaMatches,
+  ControlElement
 } from "@jsonforms/core";
-import CustomArrayListElement from "./CustomArrayListElement";
+import SilicaArrayListElement from "./SilicaArrayListElement.vue";
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,
   RendererProps,
-  rendererProps,
   useJsonFormsArrayControl
 } from "@jsonforms/vue2";
 import { useVanillaArrayControl } from "@jsonforms/vue2-vanilla";
-
-type CustomSchema = JsonSchema & { customComponentName: string };
+import { silicaDefaultControlProps } from "@/utils/silica-shims";
+import { SilicaControlSchema } from "@/types/SilicaControlTypes";
 
 const controlRenderer = defineComponent({
-  name: "custom-array-list-renderer",
+  name: "silica-array-list-renderer",
   components: {
-    CustomArrayListElement,
+    SilicaArrayListElement,
     DispatchRenderer
   },
   props: {
-    ...rendererProps<ControlElement>()
+    ...silicaDefaultControlProps
   },
   setup(props: RendererProps<ControlElement>) {
     return useVanillaArrayControl(useJsonFormsArrayControl(props));
@@ -99,19 +94,14 @@ const controlRenderer = defineComponent({
 
 export default controlRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: controlRenderer,
   tester: rankWith(
     3,
     and(
       schemaTypeIs("array"),
       schemaMatches(schema => {
-        const castSchema = schema as CustomSchema;
-        return (
-          // eslint-disable-next-line no-prototype-builtins
-          castSchema.hasOwnProperty("customComponentName") &&
-          castSchema.customComponentName === "CustomArrayRenderer"
-        );
+        return schema.type === "array";
       })
     )
   )

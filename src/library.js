@@ -1,24 +1,14 @@
 import Vue from "vue";
-import {
-  defaultStyles,
-  mergeStyles,
-  vanillaRenderers
-} from "@jsonforms/vue2-vanilla";
-import { entry as CustomTextRenderer } from "@/components/controls/CustomTextRenderer.vue";
-import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
-import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
+import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
 import DjangoSilicaFormBody from "@/components/django-silica-form-body.vue";
 import DjangoSilicaForm from "@/components/django-silica-form.vue";
 import Mixins from "@/mixins.js";
-import { bootstrapStyles } from "./components/constants/styles";
+import { bootstrapStyles } from "./constants/styles";
+import { silicaRenderers } from "./components/renderers";
 const exportComponents = { DjangoSilicaFormBody, DjangoSilicaForm };
 
-const rendererEntries = [
-  ...vanillaRenderers,
-  CategorizationRenderer,
-  CategoryRenderer
-];
-const customRendererEntries = [CustomTextRenderer];
+const rendererEntries = [...silicaRenderers];
+const customRendererEntries = [];
 
 const renderers = Object.fromEntries(
   rendererEntries.map(r => [r.renderer.name, r])
@@ -38,8 +28,8 @@ export default {
   components: exportComponents,
   renderers: rendererEntries,
   customRenderers: customRenderers,
-  defaultStyles,
-  bootstrapStyles,
+  mixins: Mixins,
   mergeStyles,
-  mixins: Mixins
+  defaultStyles,
+  bootstrapStyles
 };

@@ -21,12 +21,8 @@ import {
   defaultStyles,
   mergeStyles,
   Styles,
-  vanillaRenderers
 } from "@jsonforms/vue2-vanilla";
-import { entry as CustomTextRenderer } from "@/components/controls/CustomTextRenderer.vue";
-import { entry as CategorizationRenderer } from "@/components/layout/Categorization.vue";
-import { entry as CategoryRenderer } from "@/components/layout/Category.vue";
-import { entry as CustomArrayListElement } from "@/components/layout/CustomArrayListRenderer.vue";
+import { silicaRenderers } from "@/components/renderers";
 
 type CustomStyles = Styles & {
   categorization: {
@@ -60,11 +56,7 @@ const myStyles = mergeStyles(defaultStyles, {
 } as CustomStyles);
 
 const renderers = [
-  ...vanillaRenderers,
-  CustomTextRenderer,
-  CategorizationRenderer,
-  CategoryRenderer,
-  CustomArrayListElement
+  ...silicaRenderers
   // here you can add custom renderers
 ];
 
@@ -75,22 +67,16 @@ const schema = {
       customComponentName: "CustomArrayRenderer",
       items: {
         type: "object",
+        title: "Comments",
         properties: {
-          date: {
-            type: "string",
-            format: "date"
+          pk: {
+            type: "number",
+            options: { readonly: true },
+            hidden: true
           },
           message: {
             type: "string",
             maxLength: 5
-          },
-          enum: {
-            type: "string",
-            enum: ["foo", "bar"]
-          },
-          title: {
-            const: "title",
-            default: "title"
           }
         }
       }
@@ -105,8 +91,8 @@ const uischema = {
       type: "Control",
       scope: "#/properties/comments",
       options: {
-        childLabelProp: "title",
-        defaultTitle: "default"
+        childLabelProp: "pk",
+        defaultTitle: "Default Title"
       }
     }
   ]
@@ -122,11 +108,12 @@ export default defineComponent({
       // freeze renderers for performance gains
       renderers: Object.freeze(renderers),
       data: {
-        name: "Send email to Adrian",
-        description: "Confirm if you have passed the subject\nHereby ...",
-        done: true,
-        recurrence: "Daily",
-        rating: 3
+        comments: [
+          {
+            message: "asdfasdf",
+            pk: 123
+          }
+        ]
       },
       schema,
       uischema

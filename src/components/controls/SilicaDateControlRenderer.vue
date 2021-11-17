@@ -4,9 +4,10 @@
     :styles="styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
+    v-show="!control.schema.hidden"
   >
-    <p>This is a custom text renderer!</p>
     <input
+      type="date"
       :id="control.id + '-input'"
       :class="styles.control.input"
       :value="control.data"
@@ -25,34 +26,21 @@ import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
   rankWith,
-  isStringControl,
-  JsonSchema,
-  schemaMatches,
-  and
+  schemaMatches
 } from "@jsonforms/core";
-import { ControlWrapper, useVanillaControl } from "@jsonforms/vue2-vanilla";
-import {
-  RendererProps,
-  rendererProps,
-  useJsonFormsControl
-} from "@jsonforms/vue2";
+import { SilicaControlWrapper as ControlWrapper } from "@/components/controls/index";
 import { defineComponent } from "@vue/composition-api";
-
-type CustomSchema = JsonSchema & { customComponentName: string };
-
-const defaultProps = rendererProps<ControlElement>();
+import { RendererProps, useJsonFormsControl } from "@jsonforms/vue2";
+import { useVanillaControl } from "@jsonforms/vue2-vanilla";
+import { silicaDefaultControlProps } from "@/utils/silica-shims";
 
 const controlRenderer = defineComponent({
-  name: "custom-control-renderer",
+  name: "date-control-renderer",
   components: {
     ControlWrapper
   },
   props: {
-    ...defaultProps,
-    schema: {
-      ...defaultProps.schema,
-      type: Object as () => CustomSchema
-    }
+    ...silicaDefaultControlProps
   },
   setup(props: RendererProps<ControlElement>) {
     return useVanillaControl(useJsonFormsControl(props));
@@ -64,18 +52,10 @@ export default controlRenderer;
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
   tester: rankWith(
-    3,
-    and(
-      isStringControl,
-      schemaMatches(schema => {
-        const castSchema = schema as CustomSchema;
-        return (
-          // eslint-disable-next-line no-prototype-builtins
-          castSchema.hasOwnProperty("customComponentName") &&
-          castSchema.customComponentName === "CustomTextRenderer"
-        );
-      })
-    )
+    2,
+    schemaMatches(schema => {
+      return schema.type === "date";
+    })
   )
 };
 </script>
