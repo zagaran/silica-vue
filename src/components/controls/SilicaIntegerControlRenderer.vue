@@ -10,6 +10,7 @@
       type="number"
       :step="1"
       :id="control.id + '-input'"
+      :name="control.uischema.name"
       :class="styles.control.input"
       :value="control.data"
       :disabled="!control.enabled"

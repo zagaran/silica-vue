@@ -9,6 +9,7 @@
     <input
       type="datetime-local"
       :id="control.id + '-input'"
+      :name="control.uischema.name"
       :class="styles.control.input"
       :value="dataTime"
       :disabled="!control.enabled"

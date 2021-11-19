@@ -23,7 +23,7 @@
         :class="styles.arrayList.itemDelete"
         type="button"
       >
-        🗙
+        X
       </button>
     </div>
     <div :class="contentClasses">

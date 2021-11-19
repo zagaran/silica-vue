@@ -8,6 +8,7 @@
   >
     <textarea
       :id="control.id + '-input'"
+      :name="control.uischema.name"
       :class="styles.control.textarea"
       :value="control.data"
       :disabled="!control.enabled"

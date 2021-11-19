@@ -16,6 +16,10 @@ export const silicaDefaultControlProps = {
     hidden: {
       type: Boolean,
       required: false
+    },
+    name: {
+      required: false,
+      type: String
     }
   }
 };

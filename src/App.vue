@@ -17,11 +17,7 @@
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
 import { JsonForms, JsonFormsChangeEvent } from "@jsonforms/vue2";
-import {
-  defaultStyles,
-  mergeStyles,
-  Styles,
-} from "@jsonforms/vue2-vanilla";
+import { defaultStyles, mergeStyles, Styles } from "@jsonforms/vue2-vanilla";
 import { silicaRenderers } from "@/components/renderers";
 
 type CustomStyles = Styles & {
@@ -61,40 +57,54 @@ const renderers = [
 ];
 
 const schema = {
+  type: "object",
   properties: {
-    comments: {
+    name: { type: "string" },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    has_chapter_200: { type: "boolean" },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    housing_count: { type: "integer" },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    unsent_letter_cutoff_date: { type: "string", format: "date" },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    user_infos: {
       type: "array",
-      customComponentName: "CustomArrayRenderer",
       items: {
         type: "object",
-        title: "Comments",
-        properties: {
-          pk: {
-            type: "number",
-            options: { readonly: true },
-            hidden: true
-          },
-          message: {
-            type: "string",
-            maxLength: 5
-          }
-        }
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        properties: { verified_email: { type: "string" } }
       }
     }
   }
 };
 
 const uischema = {
-  type: "VerticalLayout",
   elements: [
+    { type: "Control", scope: "#/properties/name", label: "Name", name: "testP_name"},
     {
       type: "Control",
-      scope: "#/properties/comments",
-      options: {
-        childLabelProp: "pk",
-        defaultTitle: "Default Title"
+      scope: "#/properties/has_chapter_200",
+      label: "Has chapter 200"
+    },
+    {
+      type: "Control",
+      scope: "#/properties/housing_count",
+      label: "Housing count",
+      rule: {
+        effect: "SHOW",
+        condition: {
+          scope: "#",
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          schema: { allOf: [{type:"object", "properties": {has_chapter_200: {const: true}}}]}
+        }
       }
-    }
+    },
+    {
+      type: "Control",
+      scope: "#/properties/unsent_letter_cutoff_date",
+      label: "Unsent letter cutoff date"
+    },
+    { type: "Control", scope: "#/properties/user_infos" }
   ]
 };
 
@@ -111,7 +121,7 @@ export default defineComponent({
         comments: [
           {
             message: "asdfasdf",
-            pk: 123
+            pk: 123,
           }
         ]
       },

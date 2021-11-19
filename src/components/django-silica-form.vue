@@ -17,7 +17,7 @@
     <input
       v-if="csrfTokenValue"
       type="hidden"
-      name="csrftoken"
+      name="csrfmiddlewaretoken"
       :value="csrfTokenValue"
     />
     <button type="submit" :class="submitClass || null">

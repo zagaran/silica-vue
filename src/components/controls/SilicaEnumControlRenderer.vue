@@ -16,13 +16,14 @@
       @focus="isFocused = true"
       @blur="isFocused = false"
     >
-      <option value="" key="empty" :class="styles.control.option"/>
+      <option value="" key="empty" :name="control.uischema.name" :class="styles.control.option"/>
       <option
         v-for="optionElement in control.options"
         :key="optionElement.value"
         :value="optionElement.value"
         :label="optionElement.label"
         :class="styles.control.option"
+        :name="control.uischema.name"
       >
       </option
     ></select>

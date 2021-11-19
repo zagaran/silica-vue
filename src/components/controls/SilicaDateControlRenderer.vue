@@ -8,6 +8,7 @@
   >
     <input
       type="date"
+      :name="control.uischema.name"
       :id="control.id + '-input'"
       :class="styles.control.input"
       :value="control.data"
