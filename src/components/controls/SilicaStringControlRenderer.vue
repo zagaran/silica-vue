@@ -9,7 +9,7 @@
     <input
       :id="control.id + '-input'"
       :class="styles.control.input"
-      :name="control.uischema.name"
+      :name="control.path"
       :value="control.data"
       :disabled="!control.enabled"
       :autofocus="appliedOptions.focus"

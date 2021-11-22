@@ -8,7 +8,7 @@
   >
     <input
       type="checkbox"
-      :name="control.uischema.name"
+      :name="control.path"
       :class="styles.control.input"
       :id="control.id + '-input'"
       :checked="!!control.data"

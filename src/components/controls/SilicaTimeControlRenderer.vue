@@ -9,7 +9,7 @@
     <input
       type="time"
       :id="control.id + '-input'"
-      :name="control.uischema.name"
+      :name="control.path"
       :class="styles.control.input"
       :value="control.data"
       :disabled="!control.enabled"

@@ -9,7 +9,7 @@
     <input
       type="number"
       :step="step"
-      :name="control.uischema.name"
+      :name="control.path"
       :id="control.id + '-input'"
       :class="styles.control.input"
       :value="control.data"
