@@ -24,15 +24,12 @@
 <script lang="ts">
 import {
   ControlElement,
+  isStringControl,
   JsonFormsRendererRegistryEntry,
-  rankWith,
-  schemaMatches
+  rankWith
 } from "@jsonforms/core";
 import { ControlWrapper, useVanillaControl } from "@jsonforms/vue2-vanilla";
-import {
-  RendererProps,
-  useJsonFormsControl
-} from "@jsonforms/vue2";
+import { RendererProps, useJsonFormsControl } from "@jsonforms/vue2";
 import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "@/utils/silica-shims";
 
@@ -53,11 +50,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(
-    3,
-    schemaMatches(schema => {
-      return schema.type === "string";
-    })
-  )
+  tester: rankWith(1, isStringControl)
 };
 </script>

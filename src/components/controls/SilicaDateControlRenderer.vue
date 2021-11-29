@@ -25,9 +25,9 @@
 <script lang="ts">
 import {
   ControlElement,
+  isDateControl,
   JsonFormsRendererRegistryEntry,
-  rankWith,
-  schemaMatches
+  rankWith
 } from "@jsonforms/core";
 import { SilicaControlWrapper as ControlWrapper } from "@/components/controls/index";
 import { defineComponent } from "@vue/composition-api";
@@ -52,11 +52,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(
-    2,
-    schemaMatches(schema => {
-      return schema.type === "date";
-    })
-  )
+  tester: rankWith(2, isDateControl)
 };
 </script>

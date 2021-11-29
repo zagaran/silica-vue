@@ -72,7 +72,7 @@ const schema = {
       items: {
         type: "object",
         // eslint-disable-next-line @typescript-eslint/camelcase
-        properties: { verified_email: { type: "string" } }
+        properties: { verified_email: { type: "string" }, pk: {type: "integer", hidden: true} }
       }
     }
   }
@@ -80,7 +80,7 @@ const schema = {
 
 const uischema = {
   elements: [
-    { type: "Control", scope: "#/properties/name", label: "Name", name: "testP_name"},
+    { type: "Control", scope: "#/properties/name", label: "Name" },
     {
       type: "Control",
       scope: "#/properties/has_chapter_200",

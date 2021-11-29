@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import {
-  ControlElement,
+  ControlElement, isDateTimeControl,
   JsonFormsRendererRegistryEntry,
   rankWith,
   schemaMatches
@@ -63,11 +63,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(
-    2,
-    schemaMatches(schema => {
-      return schema.type === "datetime";
-    })
-  )
+  tester: rankWith(2, isDateTimeControl)
 };
 </script>
