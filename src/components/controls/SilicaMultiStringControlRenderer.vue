@@ -11,7 +11,7 @@
       :name="control.path"
       :class="styles.control.textarea"
       :value="control.data"
-      :disabled="!control.enabled"
+      :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
       :placeholder="appliedOptions.placeholder"
       @change="onChange"

@@ -12,7 +12,7 @@
       :name="control.path"
       :class="styles.control.input"
       :value="dataTime"
-      :disabled="!control.enabled"
+      :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
       :placeholder="appliedOptions.placeholder"
       @change="onChange"

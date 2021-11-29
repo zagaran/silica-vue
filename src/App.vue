@@ -121,7 +121,7 @@ export default defineComponent({
         comments: [
           {
             message: "asdfasdf",
-            pk: 123,
+            pk: 123
           }
         ]
       },

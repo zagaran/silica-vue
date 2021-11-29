@@ -11,7 +11,7 @@
       :class="styles.control.input"
       :name="control.path"
       :value="control.data"
-      :disabled="!control.enabled"
+      :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
       :placeholder="appliedOptions.placeholder"
       @change="onChange"

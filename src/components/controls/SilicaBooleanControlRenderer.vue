@@ -12,7 +12,7 @@
       :class="styles.control.input"
       :id="control.id + '-input'"
       :checked="!!control.data"
-      :disabled="!control.enabled"
+      :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
       :placeholder="appliedOptions.placeholder"
       @change="onChange"
