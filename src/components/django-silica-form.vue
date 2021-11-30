@@ -12,6 +12,7 @@
       :styles="styles"
       :id="id"
       :ref="id"
+      :onChange="onChange"
     />
     <slot name="post-body"></slot>
     <input
@@ -42,6 +43,8 @@ export default {
     submitText: { type: String, required: false },
     customRenderers: { type: Array, required: false },
     styles: { type: Object, required: false },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onChange: { type: Function, default: () => {} },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleSubmit: { type: Function, default: () => {} },
     submitClass: String,
