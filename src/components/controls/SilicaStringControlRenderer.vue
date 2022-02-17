@@ -8,7 +8,7 @@
   >
     <input
       :id="control.id + '-input'"
-      :class="styles.control.input"
+      :class="styles.control.input.default || styles.control.input"
       :name="control.path"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"

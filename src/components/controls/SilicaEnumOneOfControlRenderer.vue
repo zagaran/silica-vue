@@ -40,11 +40,6 @@
       @blur="isFocused = false"
     >
       <option
-        value=""
-        key="empty"
-        :name="control.path"
-        :class="styles.control.option"/>
-      <option
         v-for="optionElement in control.options"
         :key="optionElement.value"
         :value="optionElement.value"

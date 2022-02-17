@@ -3,7 +3,7 @@ import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
 import DjangoSilicaFormBody from "@/components/django-silica-form-body.vue";
 import DjangoSilicaForm from "@/components/django-silica-form.vue";
 import Mixins from "@/mixins.js";
-import { bootstrapStyles } from "./constants/styles";
+import { bootstrap3Styles, bootstrap4Styles } from "./constants/styles";
 import { silicaRenderers } from "./components/renderers";
 const exportComponents = { DjangoSilicaFormBody, DjangoSilicaForm };
 
@@ -31,5 +31,6 @@ export default {
   mixins: Mixins,
   mergeStyles,
   defaultStyles,
-  bootstrapStyles
+  bootstrap3Styles,
+  bootstrap4Styles
 };

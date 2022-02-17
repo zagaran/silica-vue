@@ -10,7 +10,7 @@
       type="time"
       :id="control.id + '-input'"
       :name="control.path"
-      :class="styles.control.input"
+      :class="styles.control.input.default || styles.control.input"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"

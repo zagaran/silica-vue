@@ -61,7 +61,7 @@ const schema = {
   properties: {
     name: { type: "string" },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    has_chapter_200: { type: "string", oneOf: [{const: true, title: "Yes"}, {const: false, title: "No"}], options: { radio: true } },
+    has_chapter_200: { type: "string", oneOf: [{const: "true", title: "Yes"}, {const: "false", title: "No"}], options: { radio: true } },
     // eslint-disable-next-line @typescript-eslint/camelcase
     housing_count: { type: "integer" },
     // eslint-disable-next-line @typescript-eslint/camelcase

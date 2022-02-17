@@ -1,13 +1,15 @@
 {
-  "name": "jsonforms-vue2-seed",
-  "version": "0.1.0",
-  "private": true,
+  "name": "silica-vue",
+  "description": "A Vue implementation of JSONForms.io's component library specifically to support rendering of django-silica components.",
+  "author": "NoahHoughton",
+  "version": "0.0.1",
+  "repository": "zagaran/silica-vue",
+  "homepage": "https://github.com/zagaran/silica-vue",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "export-lib": "vue-cli-service build --target lib --name django-silica-form src/library.js"
+    "export-lib": "vue-cli-service build --target lib --name silica-vue src/library.js"
   },
+  "license": "MIT",
   "dependencies": {
     "@jsonforms/core": "^2.5.2",
     "@jsonforms/vue2": "^2.5.2",
