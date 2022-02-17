@@ -5,6 +5,19 @@ This repository contains code to build the Silica implementation for Vue 2. To b
 an in-progress project; to suggest changes or assist, please contact [noah@zagaran.com](mailto:noah@zagaran.com).
 
 
+## Import via CDN (UNPKG)
+The easiest way to import `silica-vue` over CDN is to use UNPKG. To do so, add the following script tag to any page 
+you want to use `silica-vue`:
+`<script src="unpkg.com/silica-vue@VERSION/dist/silica-vue.umb.min.js"></script>`
+
+
+## Build from source
+You may choose to install `silica-vue` as an NPM library and build it yourself before including it in your django static files. This is very simple:
+1. Run `npm run export-lib`
+2. Copy `/dist/silica-vue.umd.min.js` to your project's static files folder
+3. Import it as you would any other UMD library
+
+
 ## Seed (original)
 
 This seed demonstrates how to use [JSON Forms](https://jsonforms.io) with Vue in order to render a simple form for displaying a task entity.
