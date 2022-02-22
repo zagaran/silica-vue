@@ -2,33 +2,28 @@ import Vue from "vue";
 import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
 import DjangoSilicaFormBody from "@/components/django-silica-form-body.vue";
 import DjangoSilicaForm from "@/components/django-silica-form.vue";
-import Mixins from "@/mixins.js";
 import { bootstrap3Styles, bootstrap4Styles } from "./constants/styles";
-import { silicaRenderers } from "./components/renderers";
+import { default as mixins } from "@/mixins";
+import { silicaRenderers } from "@/components/renderers";
+
 const exportComponents = { DjangoSilicaFormBody, DjangoSilicaForm };
 
 const rendererEntries = [...silicaRenderers];
-const customRendererEntries = [];
 
 const renderers = Object.fromEntries(
   rendererEntries.map(r => [r.renderer.name, r])
 );
 
-const customRenderers = Object.fromEntries(
-  customRendererEntries.map(r => [r.renderer.name, r])
-);
+const SilicaComponents = { ...exportComponents, ...renderers };
 
-const VueComponents = { ...exportComponents, ...renderers, ...customRenderers };
-
-Object.keys(VueComponents).forEach(name => {
-  Vue.component(name, VueComponents[name]);
+Object.keys(SilicaComponents).forEach(name => {
+  Vue.component(name, SilicaComponents[name]);
 });
 
 export default {
   components: exportComponents,
   renderers: rendererEntries,
-  customRenderers: customRenderers,
-  mixins: Mixins,
+  mixins,
   mergeStyles,
   defaultStyles,
   bootstrap3Styles,

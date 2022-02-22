@@ -1,7 +1,5 @@
-export { default as SilicaArrayListRenderer } from './SilicaArrayListRenderer.vue';
+export { default as SilicaArrayListRenderer } from "./SilicaArrayListRenderer.vue";
 
-import { entry as silicaArrayListRendererEntry } from './SilicaArrayListRenderer.vue';
+import { entry as silicaArrayListRendererEntry } from "./SilicaArrayListRenderer.vue";
 
-export const silicaArrayRenderers = [
-  silicaArrayListRendererEntry
-]
+export const silicaArrayRenderers = [silicaArrayListRendererEntry];

@@ -2,12 +2,24 @@
   <div id="app">
     <img class="logo" alt="Vue logo" src="./assets/logo.png" />
     <h1>JSON Forms Vue 2</h1>
-    <div class="myform">
+    <button @click="showSilicaForm = !showSilicaForm">Switch</button>
+    <div v-show="showSilicaForm" class="myform">
+      <h2>Django-Silica Form</h2>
+      <django-silica-form
+        id="test-form"
+        :dataP="data"
+        :schemaP="schema"
+        :uischemaP="uischema"
+        :onChange="onChange"
+      />
+    </div>
+    <div v-show="!showSilicaForm" class="myform">
+      <h2>JSONForms.io Form</h2>
       <json-forms
-        v-bind:data="data"
-        v-bind:renderers="renderers"
-        v-bind:schema="schema"
-        v-bind:uischema="uischema"
+        :data="data"
+        :renderers="renderers"
+        :schema="schema"
+        :uischema="uischema"
         @change="onChange"
       />
     </div>
@@ -19,6 +31,7 @@ import { defineComponent } from "@vue/composition-api";
 import { JsonForms, JsonFormsChangeEvent } from "@jsonforms/vue2";
 import { defaultStyles, mergeStyles, Styles } from "@jsonforms/vue2-vanilla";
 import { silicaRenderers } from "@/components/renderers";
+import DjangoSilicaForm from "@/components/django-silica-form.vue";
 
 type CustomStyles = Styles & {
   categorization: {
@@ -52,27 +65,36 @@ const myStyles = mergeStyles(defaultStyles, {
 } as CustomStyles);
 
 const renderers = [
-  ...silicaRenderers
-  // here you can add custom renderers
+  ...silicaRenderers,
 ];
 
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string" },
+    name: { type: "string", customComponentName: "CustomTextRenderer" },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    has_chapter_200: { type: "string", oneOf: [{const: "true", title: "Yes"}, {const: "false", title: "No"}], options: { radio: true } },
+    selectBoolean: {
+      type: "string",
+      oneOf: [
+        { const: "true", title: "Yes" },
+        { const: "false", title: "No" }
+      ],
+      options: { radio: true }
+    },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    housing_count: { type: "integer" },
+    numberInput: { type: "integer" },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    unsent_letter_cutoff_date: { type: "string", format: "date" },
+    sentDate: { type: "string", format: "date" },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    user_infos: {
+    userInfos: {
       type: "array",
       items: {
         type: "object",
         // eslint-disable-next-line @typescript-eslint/camelcase
-        properties: { verified_email: { type: "string" }, pk: {type: "integer", hidden: true} }
+        properties: {
+          verifiedEmail: { type: "string" },
+          pk: { type: "integer", hidden: true }
+        }
       }
     }
   }
@@ -80,53 +102,59 @@ const schema = {
 
 const uischema = {
   elements: [
-    { type: "Control", scope: "#/properties/name", label: "Name" },
     {
       type: "Control",
-      scope: "#/properties/has_chapter_200",
-      label: "Has chapter 200"
+      scope: "#/properties/name",
+      label: "Name",
+      options: { multi: true },
     },
     {
       type: "Control",
-      scope: "#/properties/housing_count",
-      label: "Housing count",
+      scope: "#/properties/selectBoolean",
+      label: "selectBoolean"
+    },
+    {
+      type: "Control",
+      scope: "#/properties/numberInput",
+      label: "numberInput",
       rule: {
         effect: "SHOW",
         condition: {
           scope: "#",
           // eslint-disable-next-line @typescript-eslint/camelcase
-          schema: { allOf: [{type:"object", "properties": {has_chapter_200: {const: true}}}]}
+          schema: {
+            allOf: [
+              {
+                type: "object",
+                properties: { selectBoolean: { const: "true" } }
+              }
+            ]
+          }
         }
       }
     },
     {
       type: "Control",
-      scope: "#/properties/unsent_letter_cutoff_date",
-      label: "Unsent letter cutoff date"
+      scope: "#/properties/sentDate",
+      label: "Sent Date"
     },
-    { type: "Control", scope: "#/properties/user_infos" }
+    { type: "Control", scope: "#/properties/userInfos" }
   ]
 };
 
 export default defineComponent({
   name: "App",
   components: {
-    JsonForms
+    JsonForms, DjangoSilicaForm
   },
   data() {
     return {
       // freeze renderers for performance gains
       renderers: Object.freeze(renderers),
-      data: {
-        comments: [
-          {
-            message: "asdfasdf",
-            pk: 123
-          }
-        ]
-      },
+      showSilicaForm: true,
+      data: {},
       schema,
-      uischema
+      uischema,
     };
   },
   methods: {

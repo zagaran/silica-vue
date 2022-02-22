@@ -1,14 +1,14 @@
 # Silica Vue
 
 This repository contains code to build the Silica implementation for Vue 2. To build the static library, use
-`npm run export-lib`. To see how to build a custom renderer, see `src/components/CustomTextRenderer.vue`. This repo is very much
+`npm run export-lib`. To see how to build a custom renderer, see `custom_components/CustomTextRenderer.vue`. This repo is very much
 an in-progress project; to suggest changes or assist, please contact [noah@zagaran.com](mailto:noah@zagaran.com).
 
 
 ## Import via CDN (UNPKG)
 The easiest way to import `silica-vue` over CDN is to use UNPKG. To do so, add the following script tag to any page 
 you want to use `silica-vue`:
-`<script src="unpkg.com/silica-vue@VERSION/dist/silica-vue.umb.min.js"></script>`
+`<script src="unpkg.com/silica-vue@VERSION/dist/silica-vue.umd.min.js"></script>`
 
 
 ## Build from source

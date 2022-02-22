@@ -13,6 +13,9 @@
       :id="id"
       :ref="id"
       :onChange="onChange"
+      :dataP="dataP"
+      :uischemaP="uischemaP"
+      :schemaP="schemaP"
     />
     <slot name="post-body"></slot>
     <input
@@ -30,8 +33,9 @@
 <script>
 import DjangoSilicaFormBody from "@/components/django-silica-form-body.vue";
 import Cookies from "js-cookie";
+import { defineComponent } from "@vue/composition-api";
 
-export default {
+export default defineComponent({
   name: "django-silica-form",
   components: { DjangoSilicaFormBody },
   /* 
@@ -51,7 +55,10 @@ export default {
     formAttrs: Object,
     method: String,
     action: String,
-    csrfToken: String
+    csrfToken: String,
+    dataP: { type: Object, required: false, default: null },
+    schemaP: { type: Object, required: false, default: null },
+    uischemaP: { type: Object, required: false, default: null }
   },
   computed: {
     csrfTokenValue() {
@@ -67,7 +74,7 @@ export default {
       return this.$refs[this.id].data;
     }
   }
-};
+});
 </script>
 
 <style scoped></style>
