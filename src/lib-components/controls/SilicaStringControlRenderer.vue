@@ -21,15 +21,13 @@
   </control-wrapper>
 </template>
 
-<script lang="ts">
+<script>
 import {
-  ControlElement,
   isStringControl,
-  JsonFormsRendererRegistryEntry,
   rankWith
 } from "@jsonforms/core";
 import { ControlWrapper, useVanillaControl } from "@jsonforms/vue2-vanilla";
-import { RendererProps, useJsonFormsControl } from "@jsonforms/vue2";
+import { useJsonFormsControl } from "@jsonforms/vue2";
 import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
 
@@ -41,14 +39,14 @@ const controlRenderer = defineComponent({
   props: {
     ...silicaDefaultControlProps
   },
-  setup(props: RendererProps<ControlElement>) {
+  setup(props) {
     return useVanillaControl(useJsonFormsControl(props));
   }
 });
 
 export default controlRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: controlRenderer,
   tester: rankWith(1, isStringControl)
 };

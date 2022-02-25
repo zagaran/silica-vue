@@ -17,17 +17,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   isLayout,
-  JsonFormsRendererRegistryEntry,
-  Layout,
   rankWith
 } from "@jsonforms/core";
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,
-  RendererProps,
   useJsonFormsLayout
 } from "@jsonforms/vue2";
 import { silicaDefaultLayoutProps } from "@/lib-components/utils/silica-shims";
@@ -41,11 +38,11 @@ const layoutRenderer = defineComponent({
   props: {
     ...silicaDefaultLayoutProps
   },
-  setup(props: RendererProps<Layout>) {
+  setup(props) {
     return useVanillaLayout(useJsonFormsLayout(props));
   },
   computed: {
-    layoutClassObject(): any {
+    layoutClassObject() {
       return this.layout.direction === "row"
         ? this.styles.horizontalLayout
         : this.styles.verticalLayout;
@@ -55,7 +52,7 @@ const layoutRenderer = defineComponent({
 
 export default layoutRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: layoutRenderer,
   tester: rankWith(1, isLayout)
 };

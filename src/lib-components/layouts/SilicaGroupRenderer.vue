@@ -20,10 +20,8 @@
   </fieldset>
 </template>
 
-<script lang="ts">
+<script>
 import {
-  JsonFormsRendererRegistryEntry,
-  Layout,
   rankWith,
   and,
   isLayout,
@@ -32,7 +30,6 @@ import {
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,
-  RendererProps,
   useJsonFormsLayout
 } from "@jsonforms/vue2";
 import { silicaDefaultLayoutProps } from "@/lib-components/utils/silica-shims";
@@ -46,14 +43,14 @@ const layoutRenderer = defineComponent({
   props: {
     ...silicaDefaultLayoutProps
   },
-  setup(props: RendererProps<Layout>) {
+  setup(props) {
     return useVanillaLayout(useJsonFormsLayout(props));
   }
 });
 
 export default layoutRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: layoutRenderer,
   tester: rankWith(2, and(isLayout, uiTypeIs("Group")))
 };

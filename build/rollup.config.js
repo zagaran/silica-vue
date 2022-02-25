@@ -8,9 +8,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
-import ttypescript from 'ttypescript';
-import typescript from 'rollup-plugin-typescript2';
 import minimist from 'minimist';
+import json from "@rollup/plugin-json";
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -27,7 +26,7 @@ const argv = minimist(process.argv.slice(2));
 const projectRoot = path.resolve(__dirname, '..');
 
 const baseConfig = {
-  input: 'src/entry.ts',
+  input: 'src/entry.js',
   plugins: {
     preVue: [
       alias({
@@ -53,6 +52,7 @@ const baseConfig = {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       }),
       commonjs(),
+      json()
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -83,7 +83,7 @@ const buildFormats = [];
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
-    input: 'src/entry.esm.ts',
+    input: 'src/entry.esm.js',
     external,
     output: {
       file: 'dist/silica-vue.esm.js',
@@ -95,13 +95,6 @@ if (!argv.format || argv.format === 'es') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
-      // Only use typescript for declarations - babel will
-      // do actual js transformations
-      typescript({
-        typescript: ttypescript,
-        useTsconfigDeclarationDir: true,
-        emitDeclarationOnly: true,
-      }),
       babel({
         ...baseConfig.plugins.babel,
         presets: [

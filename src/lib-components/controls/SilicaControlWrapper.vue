@@ -12,61 +12,59 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { isDescriptionHidden, computeLabel } from "@jsonforms/core";
 import { defineComponent } from "@vue/composition-api";
-import { CompType } from "@jsonforms/vue2/lib/config";
-import { Options, Styles } from "@jsonforms/vue2-vanilla";
 
 export default defineComponent({
   name: "silica-control-wrapper",
   props: {
     id: {
-      required: true as true,
+      required: true,
       type: String
     },
     description: {
-      required: false as false,
+      required: false,
       type: String,
       default: undefined
     },
     errors: {
-      required: false as false,
+      required: false,
       type: String,
       default: undefined
     },
     label: {
-      required: false as false,
+      required: false,
       type: String,
       default: undefined
     },
     appliedOptions: {
-      required: false as false,
-      type: Object as CompType<Options, ObjectConstructor>,
+      required: false,
+      type: Object,
       default: undefined
     },
     visible: {
-      required: false as false,
+      required: false,
       type: Boolean,
       default: true
     },
     required: {
-      required: false as false,
+      required: false,
       type: Boolean,
       default: false
     },
     isFocused: {
-      required: false as false,
+      required: false,
       type: Boolean,
       default: false
     },
     styles: {
       required: true,
-      type: Object as CompType<Styles, ObjectConstructor>
+      type: Object
     }
   },
   computed: {
-    showDescription(): boolean {
+    showDescription() {
       return !isDescriptionHidden(
         this.visible,
         this.description,
@@ -74,7 +72,7 @@ export default defineComponent({
         !!this.appliedOptions?.showUnfocusedDescription
       );
     },
-    computedLabel(): string {
+    computedLabel() {
       return computeLabel(
         this.label,
         this.required,

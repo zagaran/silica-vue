@@ -42,7 +42,7 @@
   </fieldset>
 </template>
 
-<script lang="ts">
+<script>
 import {
   composePaths,
   createDefaultValue,
@@ -50,17 +50,15 @@ import {
   schemaTypeIs,
   and,
   schemaMatches,
-  ControlElement
 } from "@jsonforms/core";
 import SilicaArrayListElement from "./SilicaArrayListElement.vue";
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,
-  RendererProps,
   useJsonFormsArrayControl
 } from "@jsonforms/vue2";
 import { useVanillaArrayControl } from "@jsonforms/vue2-vanilla";
-import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
+import { silicaDefaultControlProps } from "../utils/silica-shims";
 
 const controlRenderer = defineComponent({
   name: "silica-array-list-renderer",
@@ -71,11 +69,11 @@ const controlRenderer = defineComponent({
   props: {
     ...silicaDefaultControlProps
   },
-  setup(props: RendererProps<ControlElement>) {
+  setup(props) {
     return useVanillaArrayControl(useJsonFormsArrayControl(props));
   },
   computed: {
-    noData(): boolean {
+    noData() {
       return !this.control.data || this.control.data.length === 0;
     }
   },

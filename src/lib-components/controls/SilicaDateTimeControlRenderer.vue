@@ -22,20 +22,18 @@
   </control-wrapper>
 </template>
 
-<script lang="ts">
+<script>
 import {
-  ControlElement, isDateTimeControl,
-  JsonFormsRendererRegistryEntry,
+  isDateTimeControl,
   rankWith,
-  schemaMatches
 } from "@jsonforms/core";
 import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
 import { SilicaControlWrapper as ControlWrapper } from "@/lib-components/controls/index";
 import { defineComponent } from "@vue/composition-api";
-import { RendererProps, useJsonFormsControl } from "@jsonforms/vue2";
+import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 
-const toISOString = (inputDateTime: string) => {
+const toISOString = (inputDateTime) => {
   return inputDateTime === "" ? "" : inputDateTime + ":00.000Z";
 };
 
@@ -47,13 +45,13 @@ const controlRenderer = defineComponent({
   props: {
     ...silicaDefaultControlProps
   },
-  setup(props: RendererProps<ControlElement>) {
+  setup(props) {
     return useVanillaControl(useJsonFormsControl(props), target =>
       toISOString(target.value)
     );
   },
   computed: {
-    dataTime(): string {
+    dataTime() {
       return (this.control.data ?? "").substr(0, 16);
     }
   }
@@ -61,7 +59,7 @@ const controlRenderer = defineComponent({
 
 export default controlRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: controlRenderer,
   tester: rankWith(2, isDateTimeControl)
 };

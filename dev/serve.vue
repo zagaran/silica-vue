@@ -31,6 +31,7 @@ import { JsonForms } from "@jsonforms/vue2";
 import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
 import { DjangoSilicaForm } from "@/entry.esm";
 import { silicaRenderers } from "@/entry.esm";
+import "@jsonforms/vue2-vanilla/vanilla.css";
 
 // mergeStyles combines all classes from both styles definitions
 const styles = mergeStyles(defaultStyles, {
@@ -48,10 +49,9 @@ const styles = mergeStyles(defaultStyles, {
   }
 })
 
-// const renderers = [
-//   ...vanillaRenderers,
-    // ...silicaRenderers
-// ];
+const renderers = [
+    ...silicaRenderers
+];
 
 const schema = {
   type: "object",
@@ -138,7 +138,7 @@ export default defineComponent({
   data() {
     return {
       // freeze renderers for performance gains
-      renderers: Object.freeze(silicaRenderers),
+      renderers: Object.freeze(renderers),
       showSilicaForm: false,
       formData: {},
       schema,

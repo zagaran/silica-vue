@@ -30,16 +30,14 @@
   </control-wrapper>
 </template>
 
-<script lang="ts">
+<script>
 import {
-  ControlElement,
-  JsonFormsRendererRegistryEntry,
   rankWith,
   isEnumControl
 } from '@jsonforms/core';
 import { SilicaControlWrapper as ControlWrapper } from "@/lib-components/controls/index";
 import {defineComponent} from "@vue/composition-api";
-import {RendererProps, useJsonFormsEnumControl} from "@jsonforms/vue2";
+import {useJsonFormsEnumControl} from "@jsonforms/vue2";
 import {useVanillaControl} from "@jsonforms/vue2-vanilla";
 import {silicaDefaultControlProps} from "@/lib-components/utils/silica-shims";
 
@@ -51,14 +49,14 @@ const controlRenderer = defineComponent({
   props: {
     ...silicaDefaultControlProps
   },
-  setup(props: RendererProps<ControlElement>) {
+  setup(props) {
     return useVanillaControl(useJsonFormsEnumControl(props));
   }
 });
 
 export default controlRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: controlRenderer,
   tester: rankWith(2, isEnumControl)
 };

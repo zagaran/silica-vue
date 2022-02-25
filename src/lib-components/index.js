@@ -1,12 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-// export { default as SilicaVueSample } from './silica-vue-sample.vue';
 export {
   SilicaLayoutRenderer,
   SilicaGroupRenderer,
   SilicaCategoryRenderer,
   SilicaCategorizationRenderer
-} from "@/lib-components/layouts/index";
-export { SilicaArrayListRenderer } from "@/lib-components/array/index";
+} from "./layouts/index";
+export { SilicaArrayListRenderer } from "./array/index";
 export {
   SilicaControlWrapper,
   SilicaStringControlRenderer,
@@ -19,7 +18,7 @@ export {
   SilicaDateTimeControlRenderer,
   SilicaTimeControlRenderer,
   SilicaBooleanControlRenderer
-} from "@/lib-components/controls/index";
-export { SilicaLabelRenderer } from "@/lib-components/label/index";
-export { default as DjangoSilicaForm } from "@/lib-components/django-silica-form.vue";
-export { default as DjangoSilicaFormBody } from "@/lib-components/django-silica-form-body.vue";
+} from "./controls/index";
+export { SilicaLabelRenderer } from "./label/index";
+export { default as DjangoSilicaForm } from "./django-silica-form.vue";
+export { default as DjangoSilicaFormBody } from "./django-silica-form-body.vue";

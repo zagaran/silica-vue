@@ -1,14 +1,12 @@
 import { rendererProps } from "@jsonforms/vue2";
-import { ControlElement, Layout } from "@jsonforms/core";
-import { SilicaControlSchema } from "@/lib-components/types/SilicaControlTypes";
 
-const defaultControlProps = rendererProps<ControlElement>();
+const defaultControlProps = rendererProps();
 
 export const silicaDefaultControlProps = {
   ...defaultControlProps,
   schema: {
     ...defaultControlProps.schema,
-    type: Object as () => SilicaControlSchema,
+    type: Object,
     customComponentName: {
       type: String,
       required: false
@@ -24,7 +22,7 @@ export const silicaDefaultControlProps = {
   }
 };
 
-const defaultLayoutProps = rendererProps<Layout>();
+const defaultLayoutProps = rendererProps();
 
 export const silicaDefaultLayoutProps = {
   ...defaultLayoutProps

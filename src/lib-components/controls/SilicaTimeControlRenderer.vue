@@ -22,17 +22,15 @@
   </control-wrapper>
 </template>
 
-<script lang="ts">
+<script>
 import {
-  ControlElement,
   isTimeControl,
-  JsonFormsRendererRegistryEntry,
   rankWith,
 } from "@jsonforms/core";
 import { SilicaControlWrapper as ControlWrapper } from "@/lib-components/controls/index";
 import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
-import { RendererProps, useJsonFormsControl } from "@jsonforms/vue2";
+import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 
 const controlRenderer = defineComponent({
@@ -43,14 +41,14 @@ const controlRenderer = defineComponent({
   props: {
     ...silicaDefaultControlProps
   },
-  setup(props: RendererProps<ControlElement>) {
+  setup(props) {
     return useVanillaControl(useJsonFormsControl(props));
   }
 });
 
 export default controlRenderer;
 
-export const entry: JsonFormsRendererRegistryEntry = {
+export const entry = {
   renderer: controlRenderer,
   tester: rankWith(2, isTimeControl)
 };
