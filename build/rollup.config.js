@@ -5,6 +5,7 @@ import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import nodePolyfills from "rollup-plugin-polyfill-node";
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
@@ -40,6 +41,7 @@ const baseConfig = {
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
+      preventAssignment: false,
     },
     vue: {
       css: true,
@@ -51,6 +53,7 @@ const baseConfig = {
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       }),
+      nodePolyfills(),
       commonjs(),
       json()
     ],
@@ -68,6 +71,11 @@ const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
   'vue',
+  'util',
+  'fs',
+  'url',
+  'http',
+  'https'
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -76,6 +84,11 @@ const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
   vue: 'Vue',
+  util: 'util$2',
+  fs: 'fs',
+  url: 'url',
+  http: 'http',
+  https: 'https'
 };
 
 // Customize configs for individual targets
