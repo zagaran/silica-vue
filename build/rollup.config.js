@@ -5,6 +5,7 @@ import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
@@ -40,6 +41,7 @@ const baseConfig = {
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
+      preventAssignment: false,
     },
     vue: {
       css: true,
@@ -48,11 +50,19 @@ const baseConfig = {
       },
     },
     postVue: [
+      json(),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        preferBuiltins: false,
+        fallback: { 
+          "https": require.resolve("https-browserify"),
+          "http": require.resolve("stream-http"),
+          "url": false,
+          "fs": false,
+        }
       }),
+      nodePolyfills(),
       commonjs(),
-      json()
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -68,6 +78,9 @@ const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
   'vue',
+  '@jsonforms/core',
+  '@jsonforms/vue2',
+  '@jsonforms/vue2-vanilla',
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -76,6 +89,9 @@ const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
   vue: 'Vue',
+  "@jsonforms/core": "core",
+  "@jsonforms/vue2": "vue2",
+  "@jsonforms/vue2-vanilla": "vue2Vanilla",
 };
 
 // Customize configs for individual targets
