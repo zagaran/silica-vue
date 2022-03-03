@@ -9,3 +9,8 @@ export const silicaRenderers = [
   ...silicaControlRenderers,
   ...silicaLabelRenderers
 ];
+
+export { silicaArrayRenderers } from "./array";
+export { silicaLayoutRenderers } from "./layouts";
+export { silicaControlRenderers } from "./controls";
+export { silicaLabelRenderers } from "./label";
