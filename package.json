@@ -1,65 +1,48 @@
 {
   "name": "silica-vue",
+  "version": "0.0.10",
   "description": "A Vue implementation of JSONForms.io's component library specifically to support rendering of django-silica components.",
   "author": "NoahHoughton",
-  "version": "0.0.6",
+  "private": false,
   "repository": "zagaran/silica-vue",
+  "bugs": {
+     "url": "https://github.com/zagaran/silica-vue/issues"
+   },
   "homepage": "https://github.com/zagaran/silica-vue",
-  "main": "dist/silica-vue.ssr.js",
-  "browser": "dist/silica-vue.esm.js",
-  "module": "dist/silica-vue.esm.js",
-  "unpkg": "dist/silica-vue.min.js",
+  "main": "dist/vue-example-pkg.umd.min.js",
+  "unpkg": "dist/silica-vue.umd.min.js",
+  "jsdelivr": "dist/silica-vue.umd.min.js",
   "files": [
-    "dist/*",
-    "src/**/*.vue"
-  ],
-  "sideEffects": false,
+   "dist/*",
+   "src/*"
+ ],
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.js",
-    "prebuild": "rimraf ./dist",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
+    "build": "vue-cli-service build src/export.js --target lib --name silica-vue",
+    "prepublishOnly": "$npm_execpath build"
   },
   "dependencies": {
-    "@rollup/plugin-json": "^4.1.0",
-    "https-browserify": "^1.0.0",
-    "js-cookie": "^3.0.1",
-    "regenerator-runtime": "^0.13.9",
-    "stream-http": "^3.2.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@jsonforms/core": "^2.5.2",
-    "@jsonforms/vue2": "^2.5.2",
-    "@jsonforms/vue2-vanilla": "^2.5.2",
-    "@rollup/plugin-alias": "^3.1.2",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-replace": "^2.4.2",
-    "@vue/cli-plugin-babel": "^4.5.13",
-    "@vue/cli-service": "^4.5.13",
-    "@vue/composition-api": "^1.0.0-rc.3",
-    "cross-env": "^7.0.3",
-    "minimist": "^1.2.5",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.52.8",
-    "rollup-plugin-polyfill-node": "^0.8.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-vue": "^5.1.9",
-    "vue": "^2.6.14",
-    "vue-template-compiler": "^2.6.14"
+    "@jsonforms/core": "^3.0.0-beta.1",
+    "@jsonforms/vue2": "^3.0.0-beta.1",
+    "@jsonforms/vue2-vanilla": "^3.0.0-beta.1"
   },
   "peerDependencies": {
-    "@jsonforms/core": "^2.5.2",
-    "@jsonforms/vue2": "^2.5.2",
-    "@jsonforms/vue2-vanilla": "^2.5.2",
     "vue": "^2.6.14"
   },
-  "engines": {
-    "node": ">=12"
-  }
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/composition-api": "^1.0.0-rc.3",
+    "core-js": "^3.21.1",
+    "js-cookie": "^3.0.1",
+    "process": "^0.11.10",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue2",
+    "django",
+    "jsonforms"
+  ]
 }
