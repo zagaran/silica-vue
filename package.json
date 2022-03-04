@@ -32,10 +32,10 @@
     "@jsonforms/vue2-vanilla": "^3.0.0-beta.1"
   },
   "peerDependencies": {
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "@vue/composition-api": "^1.4.9"
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.4.9",
     "core-js": "^3.21.1",
     "js-cookie": "^3.0.1",
     "process": "^0.11.10",

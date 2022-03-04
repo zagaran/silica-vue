@@ -67,7 +67,7 @@ export const bootstrap4Styles = {
       boolean: "form-input"
     },
     error: "error",
-    textarea: "text-area",
+    textarea: "form-control",
     select: "select",
     option: "option"
   },

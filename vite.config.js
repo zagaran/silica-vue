@@ -27,7 +27,7 @@ export default defineConfig({
           vue: 'Vue',
           '@vue/composition-api': 'VueCompositionAPI'
         }
-      }
+      },
     },
   }
 })
