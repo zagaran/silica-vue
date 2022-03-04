@@ -29,7 +29,7 @@ import {
 import { ControlWrapper, useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { defineComponent } from "@vue/composition-api";
-import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
+import { silicaDefaultControlProps } from "../utils";
 
 const controlRenderer = defineComponent({
   name: "silica-string-control-renderer",

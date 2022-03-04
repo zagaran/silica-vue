@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import DjangoSilicaFormBody from "@/lib-components/django-silica-form-body.vue";
+import DjangoSilicaFormBody from "./django-silica-form-body.vue";
 import Cookies from "js-cookie";
 import { defineComponent } from "@vue/composition-api";
 

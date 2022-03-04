@@ -4,8 +4,8 @@ export {
   SilicaGroupRenderer,
   SilicaCategoryRenderer,
   SilicaCategorizationRenderer
-} from "./layouts/index";
-export { SilicaArrayListRenderer } from "./array/index";
+} from "./layouts";
+export { SilicaArrayListRenderer } from "./array";
 export {
   SilicaControlWrapper,
   SilicaStringControlRenderer,
@@ -18,7 +18,7 @@ export {
   SilicaDateTimeControlRenderer,
   SilicaTimeControlRenderer,
   SilicaBooleanControlRenderer
-} from "./controls/index";
-export { SilicaLabelRenderer } from "./label/index";
+} from "./controls";
+export { SilicaLabelRenderer } from "./label";
 export { default as DjangoSilicaForm } from "./django-silica-form.vue";
 export { default as DjangoSilicaFormBody } from "./django-silica-form-body.vue";

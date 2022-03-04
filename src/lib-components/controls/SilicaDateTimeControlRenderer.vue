@@ -27,8 +27,8 @@ import {
   isDateTimeControl,
   rankWith,
 } from "@jsonforms/core";
-import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
-import { SilicaControlWrapper as ControlWrapper } from "@/lib-components/controls/index";
+import { silicaDefaultControlProps } from "../utils";
+import { SilicaControlWrapper as ControlWrapper } from "./index";
 import { defineComponent } from "@vue/composition-api";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
