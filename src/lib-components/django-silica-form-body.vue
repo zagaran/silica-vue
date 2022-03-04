@@ -11,7 +11,7 @@
 <script>
 import { JsonForms } from "@jsonforms/vue2";
 import { defaultStyles } from "@jsonforms/vue2-vanilla";
-import { silicaRenderers } from "@/lib-components/renderers";
+import { silicaRenderers } from "./renderers";
 import { defineComponent } from "@vue/composition-api";
 
 export default defineComponent({

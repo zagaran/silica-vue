@@ -26,8 +26,6 @@
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,
-  RendererProps,
-  rendererProps,
   useJsonFormsLayout
 } from "@jsonforms/vue2";
 import {
@@ -37,6 +35,7 @@ import {
   uiTypeIs
 } from "@jsonforms/core";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
+import { silicaDefaultLayoutProps } from "../utils";
 
 const categoryRenderer = defineComponent({
   name: "category-renderer",
@@ -44,7 +43,7 @@ const categoryRenderer = defineComponent({
     DispatchRenderer
   },
   props: {
-    ...rendererProps()
+    ...silicaDefaultLayoutProps
   },
   setup(props) {
     return useVanillaLayout(useJsonFormsLayout(props));

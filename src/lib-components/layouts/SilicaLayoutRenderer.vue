@@ -27,7 +27,7 @@ import {
   DispatchRenderer,
   useJsonFormsLayout
 } from "@jsonforms/vue2";
-import { silicaDefaultLayoutProps } from "@/lib-components/utils/silica-shims";
+import { silicaDefaultLayoutProps } from "../utils";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
 
 const layoutRenderer = defineComponent({

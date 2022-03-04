@@ -9,7 +9,7 @@ import {
   rankWith,
   uiTypeIs
 } from "@jsonforms/core";
-import { silicaDefaultLayoutProps } from "@/lib-components/utils/silica-shims";
+import { silicaDefaultLayoutProps } from "../utils";
 import { defineComponent } from "@vue/composition-api";
 import {
   DispatchRenderer,

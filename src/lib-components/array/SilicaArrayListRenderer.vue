@@ -58,7 +58,7 @@ import {
   useJsonFormsArrayControl
 } from "@jsonforms/vue2";
 import { useVanillaArrayControl } from "@jsonforms/vue2-vanilla";
-import { silicaDefaultControlProps } from "../utils/silica-shims";
+import { silicaDefaultControlProps } from "../utils";
 
 const controlRenderer = defineComponent({
   name: "silica-array-list-renderer",

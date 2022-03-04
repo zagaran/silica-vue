@@ -9,17 +9,22 @@
     "url": "https://github.com/zagaran/silica-vue/issues"
   },
   "homepage": "https://github.com/zagaran/silica-vue",
-  "main": "dist/silica-vue.umd.min.js",
-  "unpkg": "dist/silica-vue.umd.min.js",
-  "jsdelivr": "dist/silica-vue.umd.min.js",
   "files": [
-    "dist/*",
-    "src/*"
+    "dist"
   ],
+  "main": "dist/silica-vue.umd.js",
+  "module": "dist/silica-vue.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/silica-vue.es.js",
+      "require": "./dist/silica-vue.umd.js"
+    }
+  },
   "scripts": {
-    "serve": "vue-cli-service serve dev/serve.js",
-    "build": "vue-cli-service build src/export.js --target lib --name silica-vue",
-    "prepublishOnly": "$npm_execpath run build"
+    "dev": "vite",
+    "build": "vite build",
+    "prepublishOnly": "$npm_execpath run build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@jsonforms/core": "^3.0.0-beta.1",
@@ -30,20 +35,12 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vue/composition-api": "^1.0.0-rc.3",
+    "@vue/composition-api": "^1.4.9",
     "core-js": "^3.21.1",
     "js-cookie": "^3.0.1",
     "process": "^0.11.10",
-    "vue-template-compiler": "^2.6.14",
-    "webpack": "^5.70.0"
-  },
-  "keywords": [
-    "vue",
-    "vuejs",
-    "vue2",
-    "django",
-    "jsonforms"
-  ]
+    "unplugin-auto-import": "^0.6.1",
+    "vite": "^2.8.6",
+    "vite-plugin-vue2": "^1.9.3"
+  }
 }

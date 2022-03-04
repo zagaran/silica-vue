@@ -29,7 +29,7 @@
 import { defineComponent } from "@vue/composition-api";
 import { JsonForms } from "@jsonforms/vue2";
 import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
-import { DjangoSilicaForm, silicaRenderers } from "@/export.js";
+import { DjangoSilicaForm, silicaRenderers } from "./export";
 import "@jsonforms/vue2-vanilla/vanilla.css";
 
 // mergeStyles combines all classes from both styles definitions

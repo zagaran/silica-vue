@@ -30,10 +30,10 @@ import {
 } from "@jsonforms/core";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { defineComponent } from "@vue/composition-api";
-import { SilicaControlWrapper as ControlWrapper } from "@/lib-components/controls/index";
+import { SilicaControlWrapper as ControlWrapper } from "./index";
 
 import { useJsonFormsControl } from "@jsonforms/vue2";
-import { silicaDefaultControlProps } from "@/lib-components/utils/silica-shims";
+import { silicaDefaultControlProps } from "../utils";
 
 const controlRenderer = defineComponent({
   name: "silica-integer-control-renderer",
