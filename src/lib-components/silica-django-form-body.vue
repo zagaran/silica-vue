@@ -15,7 +15,7 @@ import { silicaRenderers } from "./renderers";
 import { defineComponent } from "@vue/composition-api";
 
 export default defineComponent({
-  name: "django-silica-form-body",
+  name: "silica-django-form-body",
   components: { JsonForms },
   props: {
     id: { type: String, required: true },

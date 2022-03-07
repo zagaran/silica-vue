@@ -20,5 +20,5 @@ export {
   SilicaBooleanControlRenderer
 } from "./controls";
 export { SilicaLabelRenderer } from "./label";
-export { default as DjangoSilicaForm } from "./django-silica-form.vue";
-export { default as DjangoSilicaFormBody } from "./django-silica-form-body.vue";
+export { default as SilicaDjangoForm } from "./silica-django-form.vue";
+export { default as SilicaDjangoFormBody } from "./silica-django-form-body.vue";

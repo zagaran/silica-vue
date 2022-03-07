@@ -4,7 +4,7 @@
     <button @click="showSilicaForm = !showSilicaForm">Switch</button>
     <div v-show="showSilicaForm" class="myform">
       <h2>Django-Silica Form</h2>
-      <django-silica-form
+      <silica-django-form
         id="test-form"
         :dataP="formData"
         :schemaP="schema"
@@ -29,7 +29,7 @@
 import { defineComponent } from "@vue/composition-api";
 import { JsonForms } from "@jsonforms/vue2";
 import { defaultStyles, mergeStyles } from "@jsonforms/vue2-vanilla";
-import { DjangoSilicaForm, silicaRenderers } from "./export";
+import { SilicaDjangoForm, silicaRenderers } from "./export";
 import "@jsonforms/vue2-vanilla/vanilla.css";
 
 // mergeStyles combines all classes from both styles definitions
@@ -56,9 +56,7 @@ const schema = {
   type: "object",
   properties: {
     name: { type: "string", 
-      // customComponentName: "CustomTextRenderer" 
     },
-    // eslint-disable-next-line @typescript-eslint/camelcase
     selectBoolean: {
       type: "string",
       oneOf: [
@@ -67,16 +65,12 @@ const schema = {
       ],
       options: { radio: true }
     },
-    // eslint-disable-next-line @typescript-eslint/camelcase
     numberInput: { type: "integer" },
-    // eslint-disable-next-line @typescript-eslint/camelcase
     sentDate: { type: "string", format: "date" },
-    // eslint-disable-next-line @typescript-eslint/camelcase
     userInfos: {
       type: "array",
       items: {
         type: "object",
-        // eslint-disable-next-line @typescript-eslint/camelcase
         properties: {
           verifiedEmail: { type: "string" },
           pk: { type: "integer", hidden: true }
@@ -132,7 +126,7 @@ export default defineComponent({
   name: "DevServe",
   components: {
     JsonForms, 
-    DjangoSilicaForm,
+    SilicaDjangoForm,
   },
   data() {
     return {

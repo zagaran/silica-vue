@@ -7,7 +7,7 @@
     v-bind="formAttrs || {}"
   >
     <slot name="pre-body"></slot>
-    <django-silica-form-body
+    <silica-django-form-body
       :customRenderers="customRenderers"
       :styles="styles"
       :id="id"
@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import DjangoSilicaFormBody from "./django-silica-form-body.vue";
+import SilicaDjangoFormBody from "./silica-django-form-body.vue";
 import Cookies from "js-cookie";
 import { defineComponent } from "@vue/composition-api";
 
 export default defineComponent({
-  name: "django-silica-form",
-  components: { DjangoSilicaFormBody },
+  name: "silica-django-form",
+  components: { SilicaDjangoFormBody },
   /* 
     Django loads data to JS by creating a script element with an id; we have to read that data in, hence why we are
     passing id strings rather than raw data
