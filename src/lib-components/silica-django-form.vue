@@ -13,9 +13,9 @@
       :id="id"
       :ref="id"
       :onChange="onChange"
-      :dataP="dataP"
-      :uischemaP="uischemaP"
-      :schemaP="schemaP"
+      :dataProp="dataProp"
+      :uischemaProp="uischemaProp"
+      :schemaProp="schemaProp"
     />
     <slot name="post-body"></slot>
     <input
@@ -56,9 +56,11 @@ export default defineComponent({
     method: String,
     action: String,
     csrfToken: String,
-    dataP: { type: Object, required: false, default: null },
-    schemaP: { type: Object, required: false, default: null },
-    uischemaP: { type: Object, required: false, default: null }
+    // these values should only be used if the component's data, schema, and uischema are not being sourced from the
+    // DOM, for example when the component is used in the test bench
+    dataProp: { type: Object, required: false, default: null },
+    schemaProp: { type: Object, required: false, default: null },
+    uischemaProp: { type: Object, required: false, default: null }
   },
   computed: {
     csrfTokenValue() {
@@ -67,7 +69,7 @@ export default defineComponent({
       } else {
         return Cookies.get("csrftoken");
       }
-    }
+    },
   },
   methods: {
     getFormData() {

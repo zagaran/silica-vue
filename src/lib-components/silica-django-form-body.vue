@@ -22,9 +22,11 @@ export default defineComponent({
     customRenderers: { type: Array, required: false },
     styles: { type: Object, required: false },
     onChange: { type: Function, required: false },
-    dataP: { type: Object, required: false, default: null },
-    schemaP: { type: Object, required: false, default: null },
-    uischemaP: { type: Object, required: false, default: null }
+    // these values should only be used if the component's data, schema, and uischema are not being sourced from the
+    // DOM, for example when the component is used in the test bench
+    dataProp: { type: Object, required: false, default: null },
+    schemaProp: { type: Object, required: false, default: null },
+    uischemaProp: { type: Object, required: false, default: null }
   },
   data: function() {
     return {
@@ -40,22 +42,22 @@ export default defineComponent({
   },
   mounted() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
-    if (this.dataP != null) {
-      this.formData = this.dataP;
+    if (this.dataProp != null) {
+      this.formData = this.dataProp;
     } else {
       this.formData = JSON.parse(
         document.getElementById(this.id + "-data").textContent
       );
     }
-    if (this.uischemaP != null) {
-      this.uischema = this.uischemaP;
+    if (this.uischemaProp != null) {
+      this.uischema = this.uischemaProp;
     } else {
       this.uischema = JSON.parse(
         document.getElementById(this.id + "-ui-schema").textContent
       );
     }
-    if (this.schemaP != null) {
-      this.schema = this.schemaP;
+    if (this.schemaProp != null) {
+      this.schema = this.schemaProp;
     } else {
       this.schema = JSON.parse(
         document.getElementById(this.id + "-schema").textContent
@@ -73,8 +75,9 @@ export default defineComponent({
   computed: {
     formRenderers: function() {
       let renderers = [...silicaRenderers];
-      if (this.customRenderers) {
-        renderers = [...renderers, ...this.customRenderers];
+      let customRenderers = this.customRenderers || window.SilicaCustomRenderers || [];
+      if (customRenderers) {
+        renderers = [...renderers, ...customRenderers];
       }
       return Object.freeze(renderers);
     }

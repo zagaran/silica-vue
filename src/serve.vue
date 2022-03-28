@@ -6,9 +6,9 @@
       <h2>Django-Silica Form</h2>
       <silica-django-form
         id="test-form"
-        :dataP="formData"
-        :schemaP="schema"
-        :uischemaP="uischema"
+        :dataProp="formData"
+        :schemaProp="schema"
+        :uischemaProp="uischema"
         :onChange="onChange"
       />
     </div>
