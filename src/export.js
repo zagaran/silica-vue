@@ -1,5 +1,3 @@
-// import "core-js/stable";
-// import "regenerator-runtime/runtime";
 // https://dev.to/siegerts/consolidating-components-into-a-vue-js-plugin-ndc
 import * as components from "./lib-components";
 const SilicaVue = {
