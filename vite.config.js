@@ -3,6 +3,7 @@ import {createVuePlugin} from "vite-plugin-vue2";
 import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite'
 import { babel } from "@rollup/plugin-babel"
+
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
