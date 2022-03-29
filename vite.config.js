@@ -31,7 +31,6 @@ export default defineConfig({
             // into your library
             external: ['vue', '@vue/composition-api'],
             output: {
-                format: "esm",
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
