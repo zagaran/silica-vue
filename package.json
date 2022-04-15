@@ -34,7 +34,8 @@
   "dependencies": {
     "@jsonforms/core": "^3.0.0-beta.1",
     "@jsonforms/vue2": "^3.0.0-beta.1",
-    "@jsonforms/vue2-vanilla": "^3.0.0-beta.1"
+    "@jsonforms/vue2-vanilla": "^3.0.0-beta.1",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.4.9",

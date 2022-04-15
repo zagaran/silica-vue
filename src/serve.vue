@@ -132,8 +132,10 @@ export default defineComponent({
     return {
       // freeze renderers for performance gains
       renderers: Object.freeze(renderers),
-      showSilicaForm: false,
-      formData: {},
+      showSilicaForm: true,
+      formData: {
+        selectBoolean: 'false'
+      },
       schema,
       uischema,
     };
