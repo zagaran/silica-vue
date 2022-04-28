@@ -76,11 +76,11 @@ export const bootstrap4Styles = {
     option: "option"
   },
   verticalLayout: {
-    root: "vertical-layout",
+    root: "my-2",
     item: "vertical-layout-item"
   },
   horizontalLayout: {
-    root: "horizontal-layout",
+    root: "mx-2",
     item: "horizontal-layout-item"
   },
   group: {
@@ -89,7 +89,7 @@ export const bootstrap4Styles = {
     item: "group-item"
   },
   arrayList: {
-    root: "card mb-2",
+    root: "card my-2",
     legend: "card-header d-flex justify-content-between align-items-center",
     addButton: "btn",
     label: "card-text mb-0",
