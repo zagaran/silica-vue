@@ -17,6 +17,6 @@ export * from "./lib-components/utils";
 export * from "./lib-constants";
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(SilicaVue);
   window.SilicaVue = SilicaVue;
+  window.Vue.use(SilicaVue);
 }
