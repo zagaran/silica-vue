@@ -59,12 +59,16 @@ export const bootstrap3Styles = {
 export const bootstrap4Styles = {
   control: {
     root: "form-group",
-    wrapper: "wrapper",
-    label: "form-label",
+    wrapper: "w-100",
+    label: {
+      default: "form-label",
+      radio: "w-100"
+    },
     description: "description",
     input: {
       default: "form-control",
-      boolean: "form-input"
+      boolean: "form-input",
+      submit: "btn btn-success"
     },
     error: "error",
     textarea: "form-control",
@@ -85,20 +89,20 @@ export const bootstrap4Styles = {
     item: "group-item"
   },
   arrayList: {
-    root: "array-list",
-    legend: "array-list-legend",
-    addButton: "array-list-add",
-    label: "array-list-label",
-    itemWrapper: "array-list-item-wrapper",
-    noData: "array-list-no-data",
-    item: "array-list-item",
-    itemToolbar: "array-list-item-toolbar",
-    itemLabel: "array-list-item-label",
-    itemContent: "array-list-item-content",
+    root: "card mb-2",
+    legend: "card-header d-flex justify-content-between align-items-center",
+    addButton: "btn",
+    label: "card-text mb-0",
+    itemWrapper: "card m-2",
+    noData: "card-text",
+    item: "card-body",
+    itemToolbar: "card-header d-flex justify-content-between align-items-center",
+    itemLabel: "card-text",
+    itemContent: "card-body",
     itemExpanded: "expanded",
     itemMoveUp: "array-list-item-move-up",
     itemMoveDown: "array-list-item-move-down",
-    itemDelete: "array-list-item-delete"
+    itemDelete: "btn btn-danger"
   },
   label: {
     root: "label-element"

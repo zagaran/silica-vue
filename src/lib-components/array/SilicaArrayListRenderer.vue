@@ -1,30 +1,34 @@
 <template>
   <fieldset v-if="control.visible" :class="styles.arrayList.root">
-    <legend :class="styles.arrayList.legend">
+    <div :class="styles.arrayList.legend">
+      <label :class="styles.arrayList.label">
+        {{ control.label }}
+      </label>
       <button
         :class="styles.arrayList.addButton"
         @click="addButtonClick"
         type="button"
+        v-if="options.enableAddButton"
       >
-        +
+        {{ options.addText || "+" }}
       </button>
-      <label :class="styles.arrayList.label">
-        {{ control.label }}
-      </label>
-    </legend>
+    </div>
     <div
       v-for="(element, index) in control.data"
       :key="`${control.path}-${index}`"
       :class="styles.arrayList.itemWrapper"
     >
       <silica-array-list-element
+        :display-move-controls="options.enableMovementControls"
         :moveUp="moveUp(control.path, index)"
         :moveUpEnabled="index > 0"
         :moveDown="moveDown(control.path, index)"
         :moveDownEnabled="index < control.data.length - 1"
+        :display-delete="options.displayDelete"
         :delete="removeItems(control.path, [index])"
         :label="childLabelForIndex(index)"
         :styles="styles"
+        :static-title="options.staticTitle"
       >
         <dispatch-renderer
           :schema="control.schema"
@@ -36,8 +40,10 @@
         />
       </silica-array-list-element>
     </div>
-    <div v-if="noData" :class="styles.arrayList.noData">
-      No data
+    <div v-if="noData" :class="styles.arrayList.itemContent">
+      <div :class="styles.arrayList.noData">
+        {{ options.noDataMsg || "No data" }}
+      </div>
     </div>
   </fieldset>
 </template>
@@ -75,6 +81,9 @@ const controlRenderer = defineComponent({
   computed: {
     noData() {
       return !this.control.data || this.control.data.length === 0;
+    },
+    options() {
+      return this.control.uischema?.options || {}; 
     }
   },
   methods: {
@@ -85,7 +94,7 @@ const controlRenderer = defineComponent({
         this.control.path,
         createDefaultValue(this.control.schema)
       )();
-    }
+    },
   }
 });
 

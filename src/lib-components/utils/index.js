@@ -1,2 +1,3 @@
 export * from './silica-shims';
-export * from './silicaComponentRankWith';
+export * from './silica-renderer-rank-with';
+export * from './flatten-obj';

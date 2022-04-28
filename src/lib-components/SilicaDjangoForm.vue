@@ -9,13 +9,14 @@
     <slot name="pre-body"></slot>
     <silica-django-form-body
       :customRenderers="customRenderers"
-      :styles="styles"
+      :styles="_styles"
       :id="id"
       :ref="id"
       :onChange="onChange"
       :dataProp="dataProp"
       :uischemaProp="uischemaProp"
       :schemaProp="schemaProp"
+      :submit-text="submitText || 'submit'"
     />
     <slot name="post-body"></slot>
     <input
@@ -24,16 +25,19 @@
       name="csrfmiddlewaretoken"
       :value="csrfTokenValue"
     />
-    <button type="submit" :class="submitClass || null">
-      {{ submitText || "Submit" }}
-    </button>
+    <div :class="_styles.verticalLayout.root">
+      <div :class="_styles.verticalLayout.item">
+        <input type="submit" :value="submitText || 'Submit'" :class="_styles.control.input.submit || _styles.control.input.default || _styles.control.input || null"/>
+      </div>
+    </div>
   </form>
 </template>
 
 <script>
-import SilicaDjangoFormBody from "./silica-django-form-body.vue";
+import SilicaDjangoFormBody from "./SilicaDjangoFormBody.vue";
 import Cookies from "js-cookie";
 import { defineComponent } from "@vue/composition-api";
+import {defaultStyles} from "@jsonforms/vue2-vanilla";
 
 export default defineComponent({
   name: "silica-django-form",
@@ -46,13 +50,13 @@ export default defineComponent({
     id: { type: String, required: true },
     submitText: { type: String, required: false },
     customRenderers: { type: Array, required: false },
-    styles: { type: Object, required: false },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange: { type: Function, default: () => {} },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleSubmit: { type: Function, default: () => {} },
     submitClass: String,
     formAttrs: Object,
+    styles: {type: Object, required: false},
     method: String,
     action: String,
     csrfToken: String,
@@ -70,6 +74,9 @@ export default defineComponent({
         return Cookies.get("csrftoken");
       }
     },
+    _styles() {
+      return this.styles || window.SilicaVueStyles || defaultStyles
+    }
   },
   methods: {
     getFormData() {

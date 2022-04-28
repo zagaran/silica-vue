@@ -1,11 +1,12 @@
 <template>
   <div :class="styles.arrayList.item">
     <div @click="expandClicked" :class="toolbarClasses">
-      <div :class="styles.arrayList.itemLabel">{{ label || defaultTitle }}</div>
+      <div :class="styles.arrayList.itemLabel">{{ staticTitle || label }}</div>
       <button
         @click="moveUpClicked"
         :disabled="!moveUpEnabled"
         :class="styles.arrayList.itemMoveUp"
+        v-if="displayMovementControls"
         type="button"
       >
         ↑
@@ -14,6 +15,7 @@
         @click="moveDownClicked"
         :disabled="!moveDownEnabled"
         :class="styles.arrayList.itemMoveDown"
+        v-if="displayMovementControls"
         type="button"
       >
         ↓
@@ -50,6 +52,11 @@ const listItem = defineComponent({
       type: String,
       default: ""
     },
+    displayMovementControls: {
+      required: false,
+      type: Boolean,
+      default: false
+    },    
     moveUpEnabled: {
       required: false,
       type: Boolean,
@@ -70,6 +77,11 @@ const listItem = defineComponent({
       type: Function,
       default: undefined
     },
+    displayDelete: {
+      required: false,
+      type: Boolean,
+      default: true
+    },
     delete: {
       required: false,
       type: Function,
@@ -79,7 +91,7 @@ const listItem = defineComponent({
       required: true,
       type: Object
     },
-    defaultTitle: {
+    staticTitle: {
       required: false,
       type: String
     },

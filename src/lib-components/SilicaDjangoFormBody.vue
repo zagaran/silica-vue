@@ -13,8 +13,8 @@ import {JsonForms} from "@jsonforms/vue2";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
 import {silicaRenderers} from "./renderers";
 import {defineComponent} from "@vue/composition-api";
-import Vue from "vue";
 import * as _ from 'lodash';
+import {flattenObj} from "./utils";
 
 export default defineComponent({
   name: "silica-django-form-body",
@@ -41,6 +41,23 @@ export default defineComponent({
     return {
       styles: this.styles || window.SilicaVueStyles || defaultStyles
     };
+  },
+  watch: {
+    dataProp: {
+      handler(newValue, oldValue) {
+        this.ingestData('formData', newValue);
+      }, deep: true
+    },
+    uischemaProp: {
+      handler(newValue, oldValue) {
+        this.ingestData('uischema', newValue);
+      }, deep: true
+    },
+    schemaProp: {
+      handler(newValue, oldValue) {
+        this.ingestData('schema', newValue);
+      }, deep: true
+    },
   },
   mounted() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
@@ -87,31 +104,15 @@ export default defineComponent({
     },
     ingestData(dataKey, objToCopy) {
       // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data
-      // objects. Because the data can be nested, we use lodash's setWith.
-      
-      // $roots keeps previous parent properties as they will be added as a prefix for each prop.
-      // $sep is just a preference if you want to seperate nested paths other than dot.
-      const flatten = (obj, roots = [], sep = '.') => Object
-          // find props of given object
-          .keys(obj)
-          // return an object by iterating props
-          .reduce((memo, prop) => Object.assign(
-              // create a new object
-              {},
-              // include previously returned object
-              memo,
-              Object.prototype.toString.call(obj[prop]) === '[object Object]'
-                  // keep working if value is an object
-                  ? flatten(obj[prop], roots.concat([prop]), sep)
-                  // include current prop and value and prefix prop with the roots
-                  : {[roots.concat([prop]).join(sep)]: obj[prop]}
-          ), {})
-      const preppedData = flatten(objToCopy);
-      for (let key of Object.keys(preppedData)) {
-        _.setWith(this[dataKey], key, preppedData[key], function (nsValue, key, nsObject) {
-          return Vue.set(nsObject, key, nsValue)
-        })
-      
+      // objects. Because the data can be nested, we use lodash's setWith, which allows us to more easily set nested 
+      // values.
+      if (objToCopy.length) {
+        const preppedData = flattenObj(objToCopy);
+        for (let key of Object.keys(preppedData)) {
+          _.setWith(this[dataKey], key, preppedData[key], (nsValue, key, nsObject) => {
+            return this.$set(nsObject, key, nsValue)
+          })
+        }
       }
     }
   },

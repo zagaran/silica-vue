@@ -6,27 +6,24 @@
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
   >
-    <fieldset v-if="control.schema.options.radio" :class="styles.control.radioWrapper">
-      <label
-        v-for="optionElement in control.options"
-        :key="optionElement.value"
-        :class="styles.control.radioLabel || styles.control.option"
-      >
-        {{ optionElement.label }}
-        <input
-          :id="control.id + '-input'"
-          type="radio"
-          :value="optionElement.value"
-          :checked="control.data === optionElement.value"
-          :class="styles.control.radioInput"
-          :disabled="!control.enabled || control.schema.readOnly"
-          :name="control.path"
-          :autofocus="appliedOptions.focus"
-          @change="onChange"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        />
-      </label>
+    <fieldset v-if="control.schema.options.radio" :class="styles.control.wrapper">
+        <label v-for="optionElement in control.options"         
+            :key="optionElement.value" :class="styles.control.label.radio || styles.control.option">
+          <input
+              :id="control.id + '-input'"
+              type="radio"
+              :value="optionElement.value"
+              :checked="control.data === optionElement.value"
+              :class="styles.control.input.radio || styles.control.input"
+              :disabled="!control.enabled || control.schema.readOnly"
+              :name="control.path"
+              :autofocus="appliedOptions.focus"
+              @change="onChange"
+              @focus="isFocused = true"
+              @blur="isFocused = false"
+          />
+          {{ optionElement.label }}
+        </label>
     </fieldset>
     <select
       v-else

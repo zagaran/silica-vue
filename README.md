@@ -10,6 +10,10 @@ The easiest way to import `silica-vue` over CDN is to use UNPKG. To do so, add t
 you want to use `silica-vue`:
 `<script src="unpkg.com/silica-vue@VERSION/dist/silica-vue.umd.js"></script>`
 
+Note that `silica-vue` only runs natively in browsers which support ES6 or higher. If you need to support legacy browsers
+e.g. IE11, you should use any of the many tools available to transpile `silica-vue.es.js` to a supported format. We
+recommend [babel](https://www.babeljs.io) and [browserify](https://www.browserify.org).
+
 
 ## Build from source
 You may choose to install `silica-vue` as an NPM library and build it yourself before including it in your django static files. This is very simple:

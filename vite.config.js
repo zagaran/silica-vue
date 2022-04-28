@@ -2,7 +2,6 @@ import {defineConfig} from 'vite'
 import {createVuePlugin} from "vite-plugin-vue2";
 import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite'
-import { babel } from "@rollup/plugin-babel"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,12 +12,6 @@ export default defineConfig({
                 '@vue/composition-api'
             ]
         }),
-        // to support legacy browsers, transpile to ES5 using babel
-        babel({
-          babelHelpers: 'runtime',
-          extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', 'ts'],
-          exclude: 'node_modules/**'
-        })
     ],
     build: {
         lib: {
