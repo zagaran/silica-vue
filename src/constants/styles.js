@@ -76,12 +76,12 @@ export const bootstrap4Styles = {
     option: "option"
   },
   verticalLayout: {
-    root: "my-2",
-    item: "vertical-layout-item"
+    root: "vertical-layout my-2 ",
+    item: "vertical-layout-item my-1"
   },
   horizontalLayout: {
-    root: "mx-2",
-    item: "horizontal-layout-item"
+    root: "horizontal-layout mx-2",
+    item: "horizontal-layout-item mx-1"
   },
   group: {
     root: "group",

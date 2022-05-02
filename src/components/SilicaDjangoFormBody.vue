@@ -25,7 +25,7 @@ export default defineComponent({
     styles: {type: Object, required: false},
     onChange: {type: Function, required: false},
     // these values should only be used if the component's data, schema, and uischema are not being sourced from the
-    // DOM, for example when the component is used in the test bench
+    // DOM, for example when the component is used in the local bench
     dataProp: {type: Object, required: false, default: null},
     schemaProp: {type: Object, required: false, default: null},
     uischemaProp: {type: Object, required: false, default: null}
@@ -45,17 +45,26 @@ export default defineComponent({
   watch: {
     dataProp: {
       handler(newValue, oldValue) {
-        this.ingestData('formData', newValue);
+        if (!_.isEqual(newValue, oldValue)) {
+          this.formData = {};
+          this.ingestData('formData', newValue);
+        }
       }, deep: true
     },
     uischemaProp: {
       handler(newValue, oldValue) {
-        this.ingestData('uischema', newValue);
+        if (!_.isEqual(newValue, oldValue)) {
+          this.uischema = {};
+          this.ingestData('uischema', newValue);
+        }
       }, deep: true
     },
     schemaProp: {
       handler(newValue, oldValue) {
-        this.ingestData('schema', newValue);
+        if (!_.isEqual(newValue, oldValue)) {
+          this.schema = {};
+          this.ingestData('schema', newValue);
+        }
       }, deep: true
     },
   },
@@ -106,7 +115,7 @@ export default defineComponent({
       // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data
       // objects. Because the data can be nested, we use lodash's setWith, which allows us to more easily set nested 
       // values.
-      if (!!objToCopy) {
+      if (!_.isEmpty(objToCopy)) {
         const preppedData = flattenObj(objToCopy);
         for (let key of Object.keys(preppedData)) {
           _.setWith(this[dataKey], key, preppedData[key], (nsValue, key, nsObject) => {

@@ -61,7 +61,7 @@ export default defineComponent({
     action: String,
     csrfToken: String,
     // these values should only be used if the component's data, schema, and uischema are not being sourced from the
-    // DOM, for example when the component is used in the test bench
+    // DOM, for example when the component is used in the local bench
     dataProp: { type: Object, required: false, default: null },
     schemaProp: { type: Object, required: false, default: null },
     uischemaProp: { type: Object, required: false, default: null }

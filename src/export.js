@@ -1,5 +1,5 @@
 // https://dev.to/siegerts/consolidating-components-into-a-vue-js-plugin-ndc
-import * as components from "./lib-components";
+import * as components from "./components";
 const SilicaVue = {
   install(Vue, options={}) {
     for (const componentName in components) {
@@ -8,13 +8,12 @@ const SilicaVue = {
     }
   }
 }
-
 export default SilicaVue;
 
-export * from "./lib-components";
-export * from "./lib-components/renderers";
-export * from "./lib-components/utils";
-export * from "./lib-constants";
+export * from "./components";
+export * from "./components/renderers";
+export * from "./components/utils";
+export * from "./constants";
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(SilicaVue);

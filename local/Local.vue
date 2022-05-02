@@ -5,6 +5,7 @@
     <div class="btn-group mb-2">
       <button 
           v-for="formType in formTypes" 
+          :key="formType.name"
           @click="() => handleFormTypeChanged(formType)" 
           :class="{'selected': formType.name === selectedFormType.name, 'btn': true}"
       >
@@ -27,6 +28,7 @@
               :uischemaProp="uischema"
               :onChange="onChange"
               :styles="styles"
+              :custom-renderers="customRenderers"
           />
         </div>
         <div v-show="!showSilicaForm" class="myform">
@@ -51,7 +53,10 @@
               </div>
               <div class="card-body">
                 <p class="card-text">
-                  {{ schema }}
+                  <json-viewer
+                    :value="schema"
+                    :expand-depth="5"
+                    sort/>
                 </p>
               </div>
             </div>
@@ -93,10 +98,12 @@
 <script>
 import { defineComponent } from "@vue/composition-api";
 import { JsonForms } from "@jsonforms/vue2";
-import {bootstrap4Styles, SilicaDjangoForm, silicaRenderers} from "./export";
+import {bootstrap4Styles, silicaRenderers} from "../src/export";
 import "@jsonforms/vue2-vanilla/vanilla.css";
 import "./styles/bootstrap.css";
-import {formTypes} from "../docs/.vuepress/example-forms";
+import {formTypes} from "./example-forms";
+import {customRenderers, CustomTextRenderer} from "./components";
+import JsonViewer from 'vue-json-viewer';
 
 const styles = bootstrap4Styles;
 
@@ -104,106 +111,29 @@ const renderers = [
     ...silicaRenderers
 ];
 
-const schema = {
-  type: "object",
-  properties: {
-    name: { type: "string", 
-    },
-    checkBoolean: {
-      type: "boolean",
-    },
-    selectBoolean: {
-      type: "string",
-      oneOf: [
-        { const: "true", title: "Yes" },
-        { const: "false", title: "No" }
-      ],
-      options: { radio: true }
-    },
-    numberInput: { type: "integer" },
-    sentDate: { type: "string", format: "date" },
-    userInfos: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          verifiedEmail: { type: "string" },
-          pk: { type: "integer", hidden: true }
-        }
-      }
-    },
-    testInput: {type: "integer"}
-  }
-};
-
-const uischema = {
-  elements: [
-    {
-      type: "Control",
-      scope: "#/properties/name",
-      label: "Name",
-      options: { multi: true },
-    },
-      {
-      type: "Control",
-      scope: "#/properties/checkBoolean",
-      label: "checkBoolean"
-    },
-    {
-      type: "Control",
-      scope: "#/properties/selectBoolean",
-      label: "selectBoolean"
-    },
-    {
-      type: "Control",
-      scope: "#/properties/numberInput",
-      label: "numberInput",
-      rule: {
-        effect: "SHOW",
-        condition: {
-          scope: "#",
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          schema: {
-            allOf: [
-              {
-                type: "object",
-                properties: { selectBoolean: { const: "true" } }
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      type: "Control",
-      scope: "#/properties/sentDate",
-      label: "Sent Date"
-    },
-    { type: "Control", scope: "#/properties/userInfos", label: "User Info Array", options: {staticTitle: "Test", noDataMsg: "Sorry, nothing here!", addText: "Add User Info", enableAddButton: false} },
-    { type: "Control", scope: "#/properties/testInput" },
-  ]
-};
-
 export default defineComponent({
-  name: "DevServe",
+  name: "Local",
   components: {
     JsonForms, 
-    SilicaDjangoForm,
+    CustomTextRenderer,
+    JsonViewer
   },
   data() {
     return {
       // freeze renderers for performance gains
       renderers: Object.freeze(renderers),
+      customRenderers: Object.freeze(customRenderers),
       showSilicaForm: true,
-      formData: {
-        selectBoolean: 'false'
-      },
-      schema,
-      uischema,
+      formData: {},
+      schema: {},
+      uischema: {},
       styles,
       formTypes,
       selectedFormType: formTypes[0]
     };
+  },
+  mounted() {
+    this.handleFormTypeChanged(this.selectedFormType);
   },
   methods: {
     onChange(event) {
