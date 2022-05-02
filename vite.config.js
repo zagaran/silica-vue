@@ -5,7 +5,7 @@ import {resolve} from "path";
 
 // https://vitejs.dev/config/
 
-const commonConfig = {
+export default defineConfig({
     plugins: [
         createVuePlugin(),
         AutoImport({
@@ -24,7 +24,7 @@ const commonConfig = {
             // make sure to externalize deps that shouldn't be bundled
             // into your library
             external: [
-                'vue', 
+                'vue',
                 '@vue/composition-api',
             ],
             output: {
@@ -36,18 +36,5 @@ const commonConfig = {
                 }
             },
         },
-    }
-}
-
-export default defineConfig(({command}) => {
-    if (command === 'serve') {
-        return {
-            ...commonConfig,
-        }
-    }
-    else {
-        return {
-            ...commonConfig
-        }
     }
 })

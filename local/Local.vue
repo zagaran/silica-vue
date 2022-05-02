@@ -3,10 +3,10 @@
     <h1>JSON Forms Vue 2</h1>
     <h2>Change Form Type</h2>
     <div class="btn-group mb-2">
-      <button 
-          v-for="formType in formTypes" 
+      <button
+          v-for="formType in formTypes"
           :key="formType.name"
-          @click="() => handleFormTypeChanged(formType)" 
+          @click="() => handleFormTypeChanged(formType)"
           :class="{'selected': formType.name === selectedFormType.name, 'btn': true}"
       >
         {{ formType.name }}
@@ -14,79 +14,74 @@
     </div>
     <h2>Change Form Component</h2>
     <div class="btn-group mb-2">
-      <button :class="{'selected': showSilicaForm, 'btn': true}" @click="showSilicaForm = true">View Silica Form</button>
-      <button :class="{'selected': !showSilicaForm, 'btn': true}" @click="showSilicaForm = false">View JSONForms Form</button>
+      <button :class="{'selected': showSilicaForm, 'btn': true}" @click="showSilicaForm = true">View Silica Form
+      </button>
+      <button :class="{'selected': !showSilicaForm, 'btn': true}" @click="showSilicaForm = false">View JSONForms Form
+      </button>
     </div>
     <div class="row mt-2">
       <div class="col-xs-6 well">
-        <div v-show="showSilicaForm" class="myform">
-          <h2>Django-Silica Form</h2>
-          <silica-django-form
-              id="test-form"
-              :dataProp="formData"
-              :schemaProp="schema"
-              :uischemaProp="uischema"
-              :onChange="onChange"
-              :styles="styles"
-              :custom-renderers="customRenderers"
-          />
-        </div>
-        <div v-show="!showSilicaForm" class="myform">
-          <h2>JSONForms.io Form</h2>
-          <json-forms
-              :data="formData"
-              :renderers="renderers"
-              :schema="schema"
-              :uischema="uischema"
-              @change="onChange"
-          />
+        <div class="myform">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                {{ showSilicaForm ? "Django-Silica Form" : "Default JsonForms Form" }}
+              </h2>
+            </div>
+            <div class="card-body">
+              <silica-django-form
+                  v-show="showSilicaForm"
+                  id="test-form"
+                  :dataProp="formData"
+                  :schemaProp="schema"
+                  :uischemaProp="uischema"
+                  :onChange="onChange"
+                  :styles="styles"
+                  :custom-renderers="customRenderers"
+              />
+              <json-forms
+                  v-show="!showSilicaForm"
+                  :data="formData"
+                  :renderers="renderers"
+                  :schema="schema"
+                  :uischema="uischema"
+                  @change="onChange"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-xs-6">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="card">
-              <div class="card-header">
-                <p class="card-title">
-                  Schema
-                </p>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
-                  <json-viewer
-                    :value="schema"
-                    :expand-depth="5"
-                    sort/>
-                </p>
-              </div>
-            </div>
-          </div>
-                    <div class="col-xs-12">
-            <div class="card">
-              <div class="card-header">
-                <p class="card-title">
-                  UI Schema
-                </p>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
-                  {{ uischema }}
-                </p>
-              </div>
-            </div>
-          </div>
-                    <div class="col-xs-12">
-            <div class="card">
-              <div class="card-header">
-                <p class="card-title">
-                  Form Data
-                </p>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
-                  {{ formData }}
-                </p>
-              </div>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              Info
+            </h2>
+            <div class="card-body">
+              <p>Schema</p>
+              <json-viewer
+                  :value="schema"
+                  :expand-depth="2"
+                  sort
+                  boxed
+                  expanded
+              />
+              <p>UISchema</p>
+              <json-viewer
+                  :value="uischema"
+                  :expand-depth="2"
+                  sort
+                  boxed
+                  expanded
+              />
+              <p>Form Data</p>
+              <json-viewer
+                  :value="formData"
+                  :expand-depth="2"
+                  sort
+                  boxed
+                  expanded
+              />
             </div>
           </div>
         </div>
@@ -94,6 +89,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { defineComponent } from "@vue/composition-api";
@@ -116,7 +112,7 @@ export default defineComponent({
   components: {
     JsonForms, 
     CustomTextRenderer,
-    JsonViewer
+    JsonViewer,
   },
   data() {
     return {
