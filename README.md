@@ -20,3 +20,6 @@ You may choose to install `silica-vue` as an NPM library and build it yourself b
 1. Run `npx vite build`
 2. Copy `/dist/silica-vue.umd.js` to your project's static files folder
 3. Import it as you would any other UMD library
+
+## Documentation
+There is a combined documentation repository for all Silica libraries located at [Silica-Docs](https://www.github.com/zagaran/silica-docs).
