@@ -5,7 +5,7 @@ export const bootstrap3Styles = {
     label: "form-label",
     description: "description",
     input: "form-control",
-    error: "error",
+    error: "alert alert-danger",
     textarea: "text-area",
     select: "select",
     option: "option"
@@ -70,7 +70,7 @@ export const bootstrap4Styles = {
       boolean: "form-input",
       submit: "btn btn-success"
     },
-    error: "error",
+    error: "text-danger",
     textarea: "form-control",
     select: "select",
     option: "option"

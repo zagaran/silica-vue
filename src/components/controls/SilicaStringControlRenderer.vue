@@ -14,6 +14,7 @@
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
       :placeholder="appliedOptions.placeholder"
+      :maxlength="appliedOptions.maxLength"
       @change="onChange"
       @focus="isFocused = true"
       @blur="isFocused = false"
@@ -26,7 +27,8 @@ import {
   isStringControl,
   rankWith
 } from "@jsonforms/core";
-import { ControlWrapper, useVanillaControl } from "@jsonforms/vue2-vanilla";
+import { useVanillaControl } from "@jsonforms/vue2-vanilla";
+import { SilicaControlWrapper as ControlWrapper } from "./index";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "../utils";

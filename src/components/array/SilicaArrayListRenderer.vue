@@ -9,8 +9,9 @@
         @click="addButtonClick"
         type="button"
         v-if="options.enableAddButton"
+        :disabled="!canAddItem"
       >
-        {{ options.addText || "+" }}
+        {{ canAddItem ? options.addText || "+" : options.maxItemText || "Max Item Count Reached" }}
       </button>
     </div>
     <div
@@ -19,12 +20,13 @@
       :class="styles.arrayList.itemWrapper"
     >
       <silica-array-list-element
-        :display-move-controls="options.enableMovementControls"
+        :show-sort-button="options.showSortButtons"
         :moveUp="moveUp(control.path, index)"
         :moveUpEnabled="index > 0"
         :moveDown="moveDown(control.path, index)"
         :moveDownEnabled="index < control.data.length - 1"
         :display-delete="options.displayDelete"
+        :enable-delete="canDeleteItem"
         :delete="removeItems(control.path, [index])"
         :label="childLabelForIndex(index)"
         :styles="styles"
@@ -78,12 +80,27 @@ const controlRenderer = defineComponent({
   setup(props) {
     return useVanillaArrayControl(useJsonFormsArrayControl(props));
   },
+  mounted() {
+    console.log(this.control.rootSchema.properties[this.control.path].minItems, this.control.data)
+  },
   computed: {
     noData() {
       return !this.control.data || this.control.data.length === 0;
     },
     options() {
       return this.control.uischema?.options || {}; 
+    },
+    canAddItem() {
+      if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('maxItems')) {
+        return this.control.rootSchema.properties[this.control.path].maxItems > this.control.data.length;
+      }
+      return true;
+    },
+    canDeleteItem() {
+      if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('minItems')) {
+        return this.control.data.length - 1 > this.control.rootSchema.properties[this.control.path].minItems;
+      }
+      return true;
     }
   },
   methods: {

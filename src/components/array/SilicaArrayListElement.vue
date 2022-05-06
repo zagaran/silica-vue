@@ -6,7 +6,7 @@
         @click="moveUpClicked"
         :disabled="!moveUpEnabled"
         :class="styles.arrayList.itemMoveUp"
-        v-if="displayMovementControls"
+        v-if="showSortButtons"
         type="button"
       >
         ↑
@@ -15,7 +15,7 @@
         @click="moveDownClicked"
         :disabled="!moveDownEnabled"
         :class="styles.arrayList.itemMoveDown"
-        v-if="displayMovementControls"
+        v-if="showSortButtons"
         type="button"
       >
         ↓
@@ -24,6 +24,8 @@
         @click="deleteClicked"
         :class="styles.arrayList.itemDelete"
         type="button"
+        v-if="displayDelete"
+        :disabled="!enableDelete"
       >
         X
       </button>
@@ -52,7 +54,7 @@ const listItem = defineComponent({
       type: String,
       default: ""
     },
-    displayMovementControls: {
+    showSortButtons: {
       required: false,
       type: Boolean,
       default: false
@@ -78,6 +80,11 @@ const listItem = defineComponent({
       default: undefined
     },
     displayDelete: {
+      required: false,
+      type: Boolean,
+      default: true
+    },
+    enableDelete: {
       required: false,
       type: Boolean,
       default: true

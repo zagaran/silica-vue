@@ -1349,7 +1349,7 @@ export const formTypes = [
                                 ]
                             }
                         }
-                    }
+                    },
                 }
             }
         },
@@ -1358,7 +1358,10 @@ export const formTypes = [
             "elements": [
                 {
                     "type": "Control",
-                    "scope": "#/properties/comments"
+                    "scope": "#/properties/comments",
+                    "options": {
+                        "enableAddButton": true,
+                    }
                 }
             ]
         },

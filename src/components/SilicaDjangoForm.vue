@@ -13,10 +13,11 @@
       :id="id"
       :ref="id"
       :onChange="onChange"
-      :dataProp="dataProp"
-      :uischemaProp="uischemaProp"
-      :schemaProp="schemaProp"
+      :data.sync="data_"
+      :uischema.sync="uischema_"
+      :schema.sync="schema_"
       :submit-text="submitText || 'submit'"
+      :validator="validator"
     />
     <slot name="post-body"></slot>
     <input
@@ -38,6 +39,8 @@ import SilicaDjangoFormBody from "./SilicaDjangoFormBody.vue";
 import Cookies from "js-cookie";
 import { defineComponent } from "@vue/composition-api";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
+import * as _ from "lodash";
+import {flattenObj} from "./utils";
 
 export default defineComponent({
   name: "silica-django-form",
@@ -60,16 +63,71 @@ export default defineComponent({
     method: String,
     action: String,
     csrfToken: String,
-    // these values should only be used if the component's data, schema, and uischema are not being sourced from the
-    // DOM, for example when the component is used in the local bench
-    dataProp: { type: Object, required: false, default: null },
-    schemaProp: { type: Object, required: false, default: null },
-    uischemaProp: { type: Object, required: false, default: null }
+    validator: {type: Object, required: false},
+    data: {required: false, default: null},
+    schema: {required: false, default: null},
+    uischema: {required: false, default: null},
+  },
+  data () {
+    return {
+      data_: {},
+      schema_: {},
+      uischema_: {}, 
+    }
+  },
+  watch: {
+    data: {
+      handler(newData, oldData) {
+        if (!_.isEqual(oldData, newData)) {
+          this.data_ = newData;
+        }
+      }, deep: true
+    },
+    schema: {
+      handler(newSchema, oldSchema) {
+        if (!_.isEqual(oldSchema, newSchema)) {
+          this.schema_ = newSchema;
+        }
+      }, deep: true
+    },
+    uischema: {
+      handler(newUischema, oldUischema) {
+        if (!_.isEqual(oldUischema, newUischema)) {
+          this.uischema_ = newUischema
+        }
+      }
+    }
+  },
+  beforeMount() {
+    // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
+    if (document.getElementById(this.id + "-data") && !!!this.data) {
+      this.ingestData('data_', JSON.parse(
+          document.getElementById(this.id + "-data").textContent
+      ));
+    } else {
+      this.data_ = this.data;
+    }
+    if (document.getElementById(this.id + "-ui-schema") && !!!this.uischema) {
+      this.ingestData('uischema_', JSON.parse(
+          document.getElementById(this.id + "-ui-schema").textContent
+      ));
+    } else {
+      this.uischema_ = this.uischema;
+    }
+    if (document.getElementById(this.id + "-schema") && !!!this.schema) {
+      this.ingestData('schema_', JSON.parse(
+          document.getElementById(this.id + "-schema").textContent
+      ));
+    } else {
+      this.schema_ = this.schema;
+    }
   },
   computed: {
     csrfTokenValue() {
       if (this.csrfToken) {
         return this.csrfToken;
+      } else if (window.csrfToken) {
+        return window.csrfToken;
       } else {
         return Cookies.get("csrftoken");
       }
@@ -81,6 +139,19 @@ export default defineComponent({
   methods: {
     getFormData() {
       return this.$refs[this.id].formData;
+    },
+    ingestData(dataKey, objToCopy) {
+      // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data
+      // objects. Because the data can be nested, we use lodash's setWith, which allows us to more easily set nested 
+      // values.
+      if (!_.isEmpty(objToCopy)) {
+        const preppedData = flattenObj(objToCopy);
+        for (let key of Object.keys(preppedData)) {
+          _.setWith(this[dataKey], key, preppedData[key], (nsValue, key, nsObject) => {
+            return this.$set(nsObject, key, nsValue)
+          })
+        }
+      }
     }
   }
 });

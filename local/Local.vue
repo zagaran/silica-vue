@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <h1>JSON Forms Vue 2</h1>
+    <h2>Form Initialized from Window</h2>
+        <silica-django-form
+          id="test-form-window"
+          :styles="styles"
+          :custom-renderers="customRenderers"
+      />
     <h2>Change Form Type</h2>
     <div class="btn-group mb-2">
       <button
@@ -32,10 +38,10 @@
               <silica-django-form
                   v-show="showSilicaForm"
                   id="test-form"
-                  :dataProp="formData"
-                  :schemaProp="schema"
-                  :uischemaProp="uischema"
                   :onChange="onChange"
+                  :data="formData"
+                  :uischema="uischema"
+                  :schema="schema"
                   :styles="styles"
                   :custom-renderers="customRenderers"
               />
@@ -100,6 +106,7 @@ import "./styles/bootstrap.css";
 import {formTypes} from "./example-forms";
 import {customRenderers, CustomTextRenderer} from "./components";
 import JsonViewer from 'vue-json-viewer';
+import {writeToWindow} from "./util/writeToWindow";
 
 const styles = bootstrap4Styles;
 
@@ -128,8 +135,13 @@ export default defineComponent({
       selectedFormType: formTypes[0]
     };
   },
-  mounted() {
-    this.handleFormTypeChanged(this.selectedFormType);
+  beforeMount() {
+    writeToWindow('test-form-window-schema', this.selectedFormType.schema);
+    writeToWindow('test-form-window-ui-schema', this.selectedFormType.uischema);
+    writeToWindow('test-form-window-data', this.selectedFormType.data);
+    this.formData = this.selectedFormType.data;
+    this.uischema = this.selectedFormType.uischema;
+    this.schema = this.selectedFormType.schema;
   },
   methods: {
     onChange(event) {
