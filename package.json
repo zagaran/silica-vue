@@ -1,6 +1,6 @@
 {
   "name": "silica-vue",
-  "version": "0.0.15-alpha.13",
+  "version": "0.0.15-alpha.14",
   "description": "A Vue implementation of JSONForms.io's component library specifically to support rendering of silica-django components.",
   "author": "NoahHoughton",
   "private": false,

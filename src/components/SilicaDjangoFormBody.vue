@@ -39,7 +39,7 @@ export default defineComponent({
   },
   methods: {
     handleChange(ev) {
-      this.formData = ev.data;
+      this.$emit('update:data', ev.data);
       if (this.onChange) {
         this.onChange(ev);
       }

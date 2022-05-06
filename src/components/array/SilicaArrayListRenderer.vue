@@ -80,9 +80,6 @@ const controlRenderer = defineComponent({
   setup(props) {
     return useVanillaArrayControl(useJsonFormsArrayControl(props));
   },
-  mounted() {
-    console.log(this.control.rootSchema.properties[this.control.path].minItems, this.control.data)
-  },
   computed: {
     noData() {
       return !this.control.data || this.control.data.length === 0;
@@ -92,13 +89,13 @@ const controlRenderer = defineComponent({
     },
     canAddItem() {
       if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('maxItems')) {
-        return this.control.rootSchema.properties[this.control.path].maxItems > this.control.data.length;
+        return this.control.data.length + 1 <= this.control.rootSchema.properties[this.control.path].maxItems;
       }
       return true;
     },
     canDeleteItem() {
       if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('minItems')) {
-        return this.control.data.length - 1 > this.control.rootSchema.properties[this.control.path].minItems;
+        return this.control.data.length - 1 >= this.control.rootSchema.properties[this.control.path].minItems;
       }
       return true;
     }
