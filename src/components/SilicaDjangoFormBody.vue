@@ -5,7 +5,7 @@
       :schema="schema"
       :uischema="uischema"
       :ajv="_validator"
-      @change="handleChange"
+      @change="onChange"
   />
 </template>
 
@@ -30,20 +30,14 @@ export default defineComponent({
     validator: {type: Object, required: false},
     data: {type: Object, required: true},
     schema: {type: Object, required: true},
-    uischema: {type: Object, required: true}
+    uischema: {type: Object, required: true},
+    djangoErrors: {required: false},
   },
   provide() {
     return {
-      styles: this.styles || window.SilicaVueStyles || defaultStyles
+      styles: this.styles || window.SilicaVueStyles || defaultStyles,
+      djangoErrors: this.djangoErrors || [],
     };
-  },
-  methods: {
-    handleChange(ev) {
-      this.$emit('update:data', ev.data);
-      if (this.onChange) {
-        this.onChange(ev);
-      }
-    },
   },
   computed: {
     formRenderers: function () {

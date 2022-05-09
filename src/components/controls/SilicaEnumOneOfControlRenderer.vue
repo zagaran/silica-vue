@@ -59,6 +59,7 @@ import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "../utils";
 import { useJsonFormsOneOfEnumControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-enum-oneof-control-renderer",
@@ -69,7 +70,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsOneOfEnumControl(props));
+    return useSilicaControl(useVanillaControl(useJsonFormsOneOfEnumControl(props)));
   }
 });
 

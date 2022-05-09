@@ -2,11 +2,11 @@
   <div id="app">
     <h1>JSON Forms Vue 2</h1>
     <h2>Form Initialized from Window</h2>
-        <silica-django-form
-          id="test-form-window"
-          :styles="styles"
-          :custom-renderers="customRenderers"
-      />
+    <silica-django-form
+        id="test-form-window"
+        :styles="styles"
+        :custom-renderers="customRenderers"
+    />
     <h2>Change Form Type</h2>
     <div class="btn-group mb-2">
       <button
@@ -44,6 +44,7 @@
                   :schema="schema"
                   :styles="styles"
                   :custom-renderers="customRenderers"
+                  :django-errors="djangoErrors"
               />
               <json-forms
                   v-show="!showSilicaForm"
@@ -98,8 +99,8 @@
 
 
 <script>
-import { defineComponent } from "@vue/composition-api";
-import { JsonForms } from "@jsonforms/vue2";
+import {defineComponent} from "@vue/composition-api";
+import {JsonForms} from "@jsonforms/vue2";
 import {bootstrap4Styles, silicaRenderers} from "../src/export";
 import "@jsonforms/vue2-vanilla/vanilla.css";
 import "./styles/bootstrap.css";
@@ -108,16 +109,21 @@ import {customRenderers, CustomTextRenderer} from "./components";
 import JsonViewer from 'vue-json-viewer';
 import {writeToWindow} from "./util/writeToWindow";
 
+
 const styles = bootstrap4Styles;
 
 const renderers = [
-    ...silicaRenderers
+  ...silicaRenderers
 ];
+
+const djangoErrors = {
+  'name': ['Error 1', 'Error 2']
+};
 
 export default defineComponent({
   name: "Local",
   components: {
-    JsonForms, 
+    JsonForms,
     CustomTextRenderer,
     JsonViewer,
   },
@@ -131,6 +137,7 @@ export default defineComponent({
       schema: {},
       uischema: {},
       styles,
+      djangoErrors,
       formTypes,
       selectedFormType: formTypes[0]
     };

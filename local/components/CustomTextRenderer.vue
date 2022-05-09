@@ -27,6 +27,7 @@ import { customSilicaRendererTester, SilicaControlWrapper as ControlWrapper, sil
 import { defineComponent } from "@vue/composition-api";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
+import {useSilicaControl} from "../../src/composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-custom-text-renderer",
@@ -37,7 +38,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsControl(props));
+    return useSilicaControl(useVanillaControl(useJsonFormsControl(props)));
   }
 });
 export default controlRenderer;

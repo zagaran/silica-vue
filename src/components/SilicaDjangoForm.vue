@@ -13,11 +13,12 @@
       :id="id"
       :ref="id"
       :onChange="onChange"
-      :data.sync="data_"
-      :uischema.sync="uischema_"
-      :schema.sync="schema_"
+      :data="data_"
+      :uischema="uischema_"
+      :schema="schema_"
       :submit-text="submitText || 'submit'"
       :validator="validator"
+      :django-errors="djangoErrors"
     />
     <slot name="post-body"></slot>
     <input
@@ -41,6 +42,7 @@ import { defineComponent } from "@vue/composition-api";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
 import * as _ from "lodash";
 import {flattenObj} from "./utils";
+import {updateErrors} from "@jsonforms/core";
 
 export default defineComponent({
   name: "silica-django-form",
@@ -59,20 +61,22 @@ export default defineComponent({
     handleSubmit: { type: Function, default: () => {} },
     submitClass: String,
     formAttrs: Object,
-    styles: {type: Object, required: false},
+    styles: { type: Object, required: false },
     method: String,
     action: String,
     csrfToken: String,
-    validator: {type: Object, required: false},
-    data: {required: false, default: null},
-    schema: {required: false, default: null},
-    uischema: {required: false, default: null},
+    validator: { type: Object, required: false },
+    data: {  required: false, default: null },
+    schema: { required: false, default: null },
+    uischema: { required: false, default: null },
+    djangoErrors: { required: false }
   },
   data () {
     return {
       data_: {},
       schema_: {},
-      uischema_: {}, 
+      uischema_: {},
+      _djangoErrors: {}, 
     }
   },
   watch: {
@@ -93,10 +97,31 @@ export default defineComponent({
     uischema: {
       handler(newUischema, oldUischema) {
         if (!_.isEqual(oldUischema, newUischema)) {
-          this.uischema_ = newUischema
+          this.uischema_ = newUischema;
         }
       }
+    },
+    djangoErrors: {
+      handler(newErrors, oldErrors) {
+        if (!_.isEqual(oldErrors, newErrors)) {
+          this._djangoErrors = newErrors;
+        }
+      }
+    },
+  },
+  provide() {
+    return {
+      djangoErrors: this._djangoErrors,
     }
+  },
+  mounted() {
+    const self = this;
+    // this listener is what removes django errors from fields once the user has changed the field
+    this.$root.$on('field:modified', function (path) {
+      if (self._djangoErrors && self._djangoErrors.hasOwnProperty(path)) {
+        delete self._djangoErrors[path];
+      }
+    });
   },
   beforeMount() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
@@ -121,6 +146,13 @@ export default defineComponent({
     } else {
       this.schema_ = this.schema;
     }
+    if (document.getElementById(this.id + "-errors") && !!!this.djangoErrors) {
+      this.ingestData('_djangoErrors', JSON.parse(
+          document.getElementById(this.id + "-errors").textContent
+      ));
+    } else {
+      this._djangoErrors = this.djangoErrors;
+    }
   },
   computed: {
     csrfTokenValue() {
@@ -139,6 +171,10 @@ export default defineComponent({
   methods: {
     getFormData() {
       return this.$refs[this.id].formData;
+    },
+    handleFieldUpdated(fieldName) {
+      // if a field has been updated, we can clear the Django-specific error for it
+      delete this._djangoErrors[fieldName];
     },
     ingestData(dataKey, objToCopy) {
       // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data

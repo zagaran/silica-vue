@@ -40,6 +40,7 @@ import {defineComponent} from "@vue/composition-api";
 import {useJsonFormsEnumControl} from "@jsonforms/vue2";
 import {useVanillaControl} from "@jsonforms/vue2-vanilla";
 import {silicaDefaultControlProps} from "../utils";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: 'silica-enum-control-renderer',
@@ -50,7 +51,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsEnumControl(props));
+    return useSilicaControl(useVanillaControl(useJsonFormsEnumControl(props)));
   }
 });
 

@@ -6,6 +6,9 @@
     <div :class="styles.control.wrapper">
       <slot></slot>
     </div>
+    <div :class="styles.control.error" v-for="error in djangoErrors[$parent.control.path]" >
+      {{ error }}
+    </div>
     <div :class="errors ? styles.control.error : styles.control.description">
       {{ errors ? errors : showDescription ? description : null }}
     </div>
@@ -13,11 +16,16 @@
 </template>
 
 <script>
-import { isDescriptionHidden, computeLabel } from "@jsonforms/core";
+import {isDescriptionHidden, computeLabel, updateErrors} from "@jsonforms/core";
 import { defineComponent } from "@vue/composition-api";
 
 export default defineComponent({
   name: "silica-control-wrapper",
+  data() {
+    return {
+      djangoErrors: this.djangoErrors,  
+    }
+  },
   props: {
     id: {
       required: true,
@@ -61,6 +69,11 @@ export default defineComponent({
     styles: {
       required: true,
       type: Object
+    }
+  },
+  inject: {
+    djangoErrors: {
+      default: () => []
     }
   },
   computed: {

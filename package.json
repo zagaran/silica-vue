@@ -1,6 +1,6 @@
 {
   "name": "silica-vue",
-  "version": "0.0.15-alpha.14",
+  "version": "0.0.15-alpha.15",
   "description": "A Vue implementation of JSONForms.io's component library specifically to support rendering of silica-django components.",
   "author": "NoahHoughton",
   "private": false,
@@ -35,6 +35,7 @@
     "@jsonforms/core": "^3.0.0-beta.1",
     "@jsonforms/vue2": "^3.0.0-beta.1",
     "@jsonforms/vue2-vanilla": "^3.0.0-beta.1",
+    "ajv": "^8.11.0",
     "ajv-errors": "^3.0.0",
     "lodash": "^4.17.21"
   },
@@ -50,6 +51,7 @@
     "vite": "^2.8.6",
     "vite-plugin-vue2": "^1.9.3",
     "vue": "^2.6.14",
-    "vue-json-viewer": "^2.2.22"
+    "vue-json-viewer": "^2.2.22",
+    "vue-template-compiler": "^2.2.0"
   }
 }

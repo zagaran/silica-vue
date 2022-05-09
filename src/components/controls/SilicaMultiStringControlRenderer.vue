@@ -33,6 +33,7 @@ import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "../utils";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-multi-string-control-renderer",
@@ -43,7 +44,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsControl(props));
+    return useSilicaControl(useVanillaControl(useJsonFormsControl(props)));
   }
 });
 

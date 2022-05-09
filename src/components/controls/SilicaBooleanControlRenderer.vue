@@ -32,6 +32,7 @@ import { SilicaControlWrapper as ControlWrapper } from "./index";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-boolean-control-renderer",
@@ -42,10 +43,10 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(
+    return useSilicaControl(useVanillaControl(
       useJsonFormsControl(props),
       target => target.checked
-    );
+    ));
   }
 });
 

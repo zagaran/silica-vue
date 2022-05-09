@@ -34,6 +34,7 @@ import { SilicaControlWrapper as ControlWrapper } from "./index";
 
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { silicaDefaultControlProps } from "../utils";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-integer-control-renderer",
@@ -44,9 +45,9 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsControl(props), target =>
+    return useSilicaControl(useVanillaControl(useJsonFormsControl(props), target =>
       parseInt(target.value, 10)
-    );
+    ));
   }
 });
 

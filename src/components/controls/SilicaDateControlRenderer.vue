@@ -32,6 +32,7 @@ import { defineComponent } from "@vue/composition-api";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
+import {useSilicaControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "date-control-renderer",
@@ -42,7 +43,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaControl(useJsonFormsControl(props));
+    return useSilicaControl(useVanillaControl(useJsonFormsControl(props)));
   }
 });
 
