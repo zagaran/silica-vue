@@ -146,6 +146,7 @@ export default defineComponent({
     writeToWindow('test-form-window-schema', this.selectedFormType.schema);
     writeToWindow('test-form-window-ui-schema', this.selectedFormType.uischema);
     writeToWindow('test-form-window-data', this.selectedFormType.data);
+    writeToWindow('test-form-window-errors', djangoErrors);
     this.formData = this.selectedFormType.data;
     this.uischema = this.selectedFormType.uischema;
     this.schema = this.selectedFormType.schema;

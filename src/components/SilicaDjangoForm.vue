@@ -18,7 +18,8 @@
       :schema="schema_"
       :submit-text="submitText || 'submit'"
       :validator="validator"
-      :django-errors="djangoErrors"
+      :django-errors="_djangoErrors"
+      @field-modified="handleFieldUpdated"
     />
     <slot name="post-body"></slot>
     <input
@@ -112,16 +113,8 @@ export default defineComponent({
   provide() {
     return {
       djangoErrors: this._djangoErrors,
+      handleFieldUpdated: this.handleFieldUpdated,
     }
-  },
-  mounted() {
-    const self = this;
-    // this listener is what removes django errors from fields once the user has changed the field
-    this.$root.$on('field:modified', function (path) {
-      if (self._djangoErrors && self._djangoErrors.hasOwnProperty(path)) {
-        delete self._djangoErrors[path];
-      }
-    });
   },
   beforeMount() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
@@ -146,10 +139,11 @@ export default defineComponent({
     } else {
       this.schema_ = this.schema;
     }
+    // todo: this does not appear to work
     if (document.getElementById(this.id + "-errors") && !!!this.djangoErrors) {
-      this.ingestData('_djangoErrors', JSON.parse(
+      this._djangoErrors = JSON.parse(
           document.getElementById(this.id + "-errors").textContent
-      ));
+      );
     } else {
       this._djangoErrors = this.djangoErrors;
     }
@@ -172,9 +166,11 @@ export default defineComponent({
     getFormData() {
       return this.$refs[this.id].formData;
     },
-    handleFieldUpdated(fieldName) {
+    handleFieldUpdated(path) {
       // if a field has been updated, we can clear the Django-specific error for it
-      delete this._djangoErrors[fieldName];
+      if (this._djangoErrors && this._djangoErrors.hasOwnProperty(path)) {
+        delete this._djangoErrors[path];
+      }
     },
     ingestData(dataKey, objToCopy) {
       // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data

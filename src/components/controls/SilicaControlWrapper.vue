@@ -73,7 +73,10 @@ export default defineComponent({
   },
   inject: {
     djangoErrors: {
-      default: () => []
+      default: () => {return {}}
+    },
+    handleFieldUpdated: {
+      default: () => function() {}
     }
   },
   computed: {
