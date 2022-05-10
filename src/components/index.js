@@ -17,7 +17,8 @@ export {
   SilicaDateControlRenderer,
   SilicaDateTimeControlRenderer,
   SilicaTimeControlRenderer,
-  SilicaBooleanControlRenderer
+  SilicaBooleanControlRenderer,
+  SilicaSubmitControlRenderer
 } from "./controls";
 export { SilicaLabelRenderer } from "./label";
 export { default as SilicaDjangoForm } from "./SilicaDjangoForm.vue";

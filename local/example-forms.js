@@ -55,6 +55,10 @@ export const formTypes = [
                 "postalCode": {
                     "type": "string",
                     "maxLength": 5
+                },
+                "submit": {
+                    type: "null",
+                    default: null
                 }
             },
             "required": [
@@ -110,7 +114,10 @@ export const formTypes = [
                                 "Teacher",
                                 "Other"
                             ]
-                        }
+                        },
+                        {"type": "Control", "scope": "#/properties/submit", "options": {
+                            "format": "submit"
+                            }}
                     ]
                 }
             ]
@@ -122,7 +129,8 @@ export const formTypes = [
             "personalData": {
                 "age": 34
             },
-            "postalCode": "12345"
+            "postalCode": "12345",
+            "submit": "Test"
         }
     },
     {

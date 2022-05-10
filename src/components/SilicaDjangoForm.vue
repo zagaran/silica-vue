@@ -28,7 +28,7 @@
       name="csrfmiddlewaretoken"
       :value="csrfTokenValue"
     />
-    <div :class="_styles.verticalLayout.root">
+    <div :class="_styles.verticalLayout.root" v-if="addSubmitButton">
       <div :class="_styles.verticalLayout.item">
         <input type="submit" :value="submitText || 'Submit'" :class="_styles.control.input.submit || _styles.control.input.default || _styles.control.input || null"/>
       </div>
@@ -70,7 +70,8 @@ export default defineComponent({
     data: {  required: false, default: null },
     schema: { required: false, default: null },
     uischema: { required: false, default: null },
-    djangoErrors: { required: false }
+    djangoErrors: { required: false },
+    addSubmitButton: { type: Boolean, required: false, default: true },
   },
   data () {
     return {
