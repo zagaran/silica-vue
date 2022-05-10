@@ -1,4 +1,4 @@
-import {inject} from "@vue/composition-api/dist/vue-composition-api";
+import {inject} from "@vue/composition-api";
 
 export function useSilicaControl(props) {
     // this hook should only be used to wrap useVanillaControl
