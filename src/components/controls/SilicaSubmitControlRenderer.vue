@@ -53,7 +53,7 @@ export default controlRenderer;
 export const entry = {
   renderer: controlRenderer,
   tester: rankWith(
-      1, 
+      2, 
       and(
           isStringControl,
           optionIs("format", "submit")
