@@ -14,6 +14,7 @@ export * from "./components";
 export * from "./components/renderers";
 export * from "./components/utils";
 export * from "./constants";
+export * from "./composition";
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(SilicaVue);

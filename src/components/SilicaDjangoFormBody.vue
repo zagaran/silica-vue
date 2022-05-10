@@ -5,7 +5,7 @@
       :schema="schema"
       :uischema="uischema"
       :ajv="_validator"
-      @change="onChange"
+      @change="handleChange"
   />
 </template>
 
@@ -38,6 +38,14 @@ export default defineComponent({
       styles: this.styles || window.SilicaVueStyles || defaultStyles,
       djangoErrors: this.djangoErrors || [],
     };
+  },
+  methods: {
+    handleChange(ev) {
+      this.$emit('update:data', ev.data);
+      if (this.onChange) {
+        this.onChange(ev);
+      }
+    }
   },
   computed: {
     formRenderers: function () {

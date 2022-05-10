@@ -32,7 +32,7 @@ import { SilicaControlWrapper as ControlWrapper } from "./index";
 import { defineComponent } from "@vue/composition-api";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
-import {useSilicaControl} from "../../composition/useSilicaControl";
+import {useSilicaControl} from "../../composition";
 
 const toISOString = (inputDateTime) => {
   return inputDateTime === "" ? "" : inputDateTime + ":00.000Z";

@@ -13,12 +13,12 @@
       :id="id"
       :ref="id"
       :onChange="onChange"
-      :data="data_"
-      :uischema="uischema_"
-      :schema="schema_"
+      :data.sync="data_"
+      :uischema.sync="uischema_"
+      :schema.sync="schema_"
       :submit-text="submitText || 'submit'"
       :validator="validator"
-      :django-errors="_djangoErrors"
+      :django-errors.sync="djangoErrors_"
       @field-modified="handleFieldUpdated"
     />
     <slot name="post-body"></slot>
@@ -77,7 +77,7 @@ export default defineComponent({
       data_: {},
       schema_: {},
       uischema_: {},
-      _djangoErrors: {}, 
+      djangoErrors_: {}, 
     }
   },
   watch: {
@@ -105,14 +105,14 @@ export default defineComponent({
     djangoErrors: {
       handler(newErrors, oldErrors) {
         if (!_.isEqual(oldErrors, newErrors)) {
-          this._djangoErrors = newErrors;
+          this.djangoErrors_ = newErrors;
         }
       }
     },
   },
   provide() {
     return {
-      djangoErrors: this._djangoErrors,
+      djangoErrors: this.djangoErrors_,
       handleFieldUpdated: this.handleFieldUpdated,
     }
   },
@@ -139,13 +139,12 @@ export default defineComponent({
     } else {
       this.schema_ = this.schema;
     }
-    // todo: this does not appear to work
     if (document.getElementById(this.id + "-errors") && !!!this.djangoErrors) {
-      this._djangoErrors = JSON.parse(
+      this.djangoErrors_ = JSON.parse(
           document.getElementById(this.id + "-errors").textContent
       );
     } else {
-      this._djangoErrors = this.djangoErrors;
+      this.djangoErrors_ = this.djangoErrors;
     }
   },
   computed: {
@@ -168,8 +167,8 @@ export default defineComponent({
     },
     handleFieldUpdated(path) {
       // if a field has been updated, we can clear the Django-specific error for it
-      if (this._djangoErrors && this._djangoErrors.hasOwnProperty(path)) {
-        delete this._djangoErrors[path];
+      if (this.djangoErrors_ && this.djangoErrors_.hasOwnProperty(path)) {
+        delete this.djangoErrors_[path];
       }
     },
     ingestData(dataKey, objToCopy) {

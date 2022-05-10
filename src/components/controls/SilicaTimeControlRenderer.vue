@@ -32,7 +32,7 @@ import { defineComponent } from "@vue/composition-api";
 import { silicaDefaultControlProps } from "../utils/silica-shims";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
-import {useSilicaControl} from "../../composition/useSilicaControl";
+import {useSilicaControl} from "../../composition";
 
 const controlRenderer = defineComponent({
   name: "silica-time-control-renderer",

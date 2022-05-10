@@ -34,7 +34,7 @@ import { SilicaControlWrapper as ControlWrapper } from "./index";
 
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { silicaDefaultControlProps } from "../utils";
-import {useSilicaControl} from "../../composition/useSilicaControl";
+import {useSilicaControl} from "../../composition";
 
 const controlRenderer = defineComponent({
   name: "silica-integer-control-renderer",
