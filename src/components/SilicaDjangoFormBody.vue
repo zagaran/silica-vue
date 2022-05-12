@@ -32,11 +32,13 @@ export default defineComponent({
     schema: {type: Object, required: true},
     uischema: {type: Object, required: true},
     djangoErrors: {required: false},
+    customElementsContent: {required: false},
   },
   provide() {
     return {
       styles: this.styles || window.SilicaVueStyles || defaultStyles,
       djangoErrors: this.djangoErrors || [],
+      customElementsContent: this.customElementsContent || {}
     };
   },
   methods: {

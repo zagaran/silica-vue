@@ -56,10 +56,6 @@ export const formTypes = [
                     "type": "string",
                     "maxLength": 5
                 },
-                "submit": {
-                    type: "null",
-                    default: null
-                }
             },
             "required": [
                 "occupation",
@@ -115,9 +111,11 @@ export const formTypes = [
                                 "Other"
                             ]
                         },
-                        {"type": "Control", "scope": "#/properties/submit", "options": {
-                            "format": "submit"
-                            }}
+                        {
+                            "type": "CustomElement", 
+                            "name": "elemene1", 
+                            "scope": "#/"
+                            }
                     ]
                 }
             ]

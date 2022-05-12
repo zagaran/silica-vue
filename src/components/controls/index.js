@@ -9,7 +9,7 @@ export { default as SilicaDateControlRenderer } from "./SilicaDateControlRendere
 export { default as SilicaDateTimeControlRenderer } from "./SilicaDateTimeControlRenderer.vue";
 export { default as SilicaTimeControlRenderer } from "./SilicaTimeControlRenderer.vue";
 export { default as SilicaBooleanControlRenderer } from "./SilicaBooleanControlRenderer.vue";
-export { default as SilicaSubmitControlRenderer } from "./SilicaSubmitControlRenderer.vue";
+export { default as SilicaHTMLContentRenderer } from "./SilicaHTMLContentRenderer.vue";
 
 import { entry as silicaStringControlRendererEntry } from "./SilicaStringControlRenderer.vue";
 import { entry as silicaMultiStringControlRendererEntry } from "./SilicaMultiStringControlRenderer.vue";
@@ -21,7 +21,7 @@ import { entry as silicaDateControlRendererEntry } from "./SilicaDateControlRend
 import { entry as silicaDateTimeControlRendererEntry } from "./SilicaDateTimeControlRenderer.vue";
 import { entry as silicaTimeControlRendererEntry } from "./SilicaTimeControlRenderer.vue";
 import { entry as silicaBooleanControlRendererEntry } from "./SilicaBooleanControlRenderer.vue";
-import { entry as silicaSubmitControlRendererEntry } from "./SilicaSubmitControlRenderer.vue";
+import { entry as silicaHTMLContentRendererEntry } from "./SilicaHTMLContentRenderer.vue";
 
 export const silicaControlRenderers = [
   silicaStringControlRendererEntry,
@@ -34,5 +34,5 @@ export const silicaControlRenderers = [
   silicaDateTimeControlRendererEntry,
   silicaTimeControlRendererEntry,
   silicaBooleanControlRendererEntry,
-  silicaSubmitControlRendererEntry,
+  silicaHTMLContentRendererEntry,
 ];

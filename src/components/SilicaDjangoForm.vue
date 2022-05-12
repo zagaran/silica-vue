@@ -19,6 +19,7 @@
       :submit-text="submitText || 'submit'"
       :validator="validator"
       :django-errors.sync="djangoErrors_"
+      :custom-elements-content.sync="customElementsContent_"
       @field-modified="handleFieldUpdated"
     />
     <slot name="post-body"></slot>
@@ -71,6 +72,7 @@ export default defineComponent({
     schema: { required: false, default: null },
     uischema: { required: false, default: null },
     djangoErrors: { required: false },
+    customElementsContent: {required: false},
     addSubmitButton: { type: Boolean, required: false, default: true },
   },
   data () {
@@ -79,6 +81,7 @@ export default defineComponent({
       schema_: {},
       uischema_: {},
       djangoErrors_: {}, 
+      customElementsContent_: {},
     }
   },
   watch: {
@@ -115,6 +118,7 @@ export default defineComponent({
     return {
       djangoErrors: this.djangoErrors_,
       handleFieldUpdated: this.handleFieldUpdated,
+      customElementsContent: this.customElementsContent_,
     }
   },
   beforeMount() {
@@ -146,6 +150,13 @@ export default defineComponent({
       );
     } else {
       this.djangoErrors_ = this.djangoErrors;
+    }
+    if (document.getElementById(this.id + "-custom-elements") && !!!this.customElementsContent) {
+      this.customElementsContent_ = JSON.parse(
+          document.getElementById(this.id + "-custom-elements").textContent
+      );
+    } else {
+      this.customElementsContent_ = this.customElementsContent;
     }
   },
   computed: {

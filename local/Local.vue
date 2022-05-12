@@ -45,6 +45,7 @@
                   :styles="styles"
                   :custom-renderers="customRenderers"
                   :django-errors="djangoErrors"
+                  :custom-elements-content="customElementsContent"
               />
               <json-forms
                   v-show="!showSilicaForm"
@@ -120,6 +121,10 @@ const djangoErrors = {
   'name': ['Error 1', 'Error 2']
 };
 
+const customElementsContent = {
+  'elemene1': "<div>Hi! I am an element defined fully on the backend.</div>",
+}
+
 export default defineComponent({
   name: "Local",
   components: {
@@ -138,6 +143,7 @@ export default defineComponent({
       uischema: {},
       styles,
       djangoErrors,
+      customElementsContent,
       formTypes,
       selectedFormType: formTypes[0]
     };
@@ -147,6 +153,7 @@ export default defineComponent({
     writeToWindow('test-form-window-ui-schema', this.selectedFormType.uischema);
     writeToWindow('test-form-window-data', this.selectedFormType.data);
     writeToWindow('test-form-window-errors', djangoErrors);
+    writeToWindow('test-form-window-custom-elements', customElementsContent);
     this.formData = this.selectedFormType.data;
     this.uischema = this.selectedFormType.uischema;
     this.schema = this.selectedFormType.schema;
