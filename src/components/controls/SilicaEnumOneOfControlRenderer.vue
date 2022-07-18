@@ -6,7 +6,7 @@
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
   >
-    <fieldset v-if="control.schema.options.radio" :class="styles.control.wrapper">
+    <fieldset v-if="control.uischema.options.format === 'radio'" :class="styles.control.wrapper">
         <label v-for="optionElement in control.options"         
             :key="optionElement.value" :class="styles.control.label.radio || styles.control.option">
           <input
