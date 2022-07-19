@@ -31,7 +31,7 @@ export const entry = {
   renderer: controlRenderer,
   tester: rankWith(
     1,
-    uiTypeIs("CustomElement")
+    uiTypeIs("CustomHTMLElement")
   )
 };
 </script>
