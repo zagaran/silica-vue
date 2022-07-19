@@ -122,7 +122,7 @@ export const entry = {
     and(
       schemaTypeIs("array"),
       schemaMatches(schema => {
-        schemaTypeContains(schema, 'array')
+        return schemaTypeContains(schema, 'array')
       })
     )
   )
