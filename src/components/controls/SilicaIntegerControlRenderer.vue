@@ -35,6 +35,7 @@ import { SilicaControlWrapper as ControlWrapper } from "./index";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { silicaDefaultControlProps } from "../utils";
 import {useSilicaControl} from "../../composition";
+import {schemaTypeContains} from "../utils/schema-utils";
 
 const controlRenderer = defineComponent({
   name: "silica-integer-control-renderer",
@@ -58,7 +59,7 @@ export const entry = {
   tester: rankWith(
     1,
     schemaMatches(schema => {
-      return schema.type === "integer";
+      return schemaTypeContains(schema, 'integer')
     })
   )
 };

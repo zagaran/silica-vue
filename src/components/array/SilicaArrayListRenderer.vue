@@ -67,6 +67,7 @@ import {
 } from "@jsonforms/vue2";
 import { useVanillaArrayControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
+import {schemaTypeContains} from "../utils/schema-utils";
 
 const controlRenderer = defineComponent({
   name: "silica-array-list-renderer",
@@ -121,7 +122,7 @@ export const entry = {
     and(
       schemaTypeIs("array"),
       schemaMatches(schema => {
-        return schema.type === "array";
+        schemaTypeContains(schema, 'array')
       })
     )
   )

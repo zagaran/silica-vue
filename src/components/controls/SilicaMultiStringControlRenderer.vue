@@ -34,6 +34,7 @@ import { silicaDefaultControlProps } from "../utils";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import {useSilicaControl} from "../../composition";
+import {schemaTypeContains} from "../utils/schema-utils";
 
 const controlRenderer = defineComponent({
   name: "silica-multi-string-control-renderer",
@@ -56,7 +57,7 @@ export const entry = {
     2,
     and(
       schemaMatches(schema => {
-        return schema.type === "string";
+        return schemaTypeContains(schema, 'string')
       }),
       isMultiLineControl
     )

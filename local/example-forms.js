@@ -35,7 +35,7 @@ export const formTypes = [
                             "description": "Please enter your age."
                         },
                         "height": {
-                            "type": "number"
+                            "type": "number",
                         },
                         "drivingSkill": {
                             "type": "number",
@@ -45,8 +45,8 @@ export const formTypes = [
                         }
                     },
                     "required": [
+                        "height",
                         "age",
-                        "height"
                     ]
                 },
                 "occupation": {
@@ -254,6 +254,11 @@ export const formTypes = [
                 "toggle": {
                     "type": "boolean",
                     "description": "The \"toggle\" option renders boolean values as a toggle."
+                },
+                "nullString": {
+                    "type": ["string", "null"],
+                    "description": "Can be null or an empty string",
+                    "minLength": 0,
                 }
             },
             "required": [
@@ -314,6 +319,11 @@ export const formTypes = [
                         "toggle": true,
                         "readOnly": true,
                     }
+                },
+                                {
+                    "type": "Control",
+                    "scope": "#/properties/nullString",
+                    "label": "Nullable String",
                 }
             ]
         },
@@ -322,7 +332,8 @@ export const formTypes = [
             "slider": 4,
             "trimText": "abcdefg",
             "restrictText": "abcde",
-            "toggle": false
+            "toggle": false,
+            "nullString": null,
         },
     },
     {

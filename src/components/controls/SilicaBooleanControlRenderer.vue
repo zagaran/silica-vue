@@ -33,6 +33,7 @@ import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
 import {useSilicaControl} from "../../composition";
+import {schemaTypeContains} from "../utils/schema-utils";
 
 const controlRenderer = defineComponent({
   name: "silica-boolean-control-renderer",
@@ -57,7 +58,7 @@ export const entry = {
   tester: rankWith(
     1,
     schemaMatches(schema => {
-      return schema.type === "boolean";
+      return schemaTypeContains(schema, 'boolean')
     })
   )
 };
