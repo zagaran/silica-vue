@@ -70,6 +70,9 @@ export const formTypes = [
             "elements": [
                 {
                     "type": "HorizontalLayout",
+                    'options': {
+                        'overrideCss': {'root': 'bg-info'}
+                    },
                     "elements": [
                         {
                             "type": "Control",

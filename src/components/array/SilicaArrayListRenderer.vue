@@ -29,7 +29,7 @@
         :enable-delete="canDeleteItem"
         :delete="removeItems(control.path, [index])"
         :label="childLabelForIndex(index)"
-        :styles="overrideCss.listElementOverrides || styles"
+        :styles="overrideCss.listElement || styles"
         :static-title="options.staticTitle"
       >
         <dispatch-renderer
@@ -43,7 +43,7 @@
       </silica-array-list-element>
     </div>
     <div v-if="noData" :class="overrideCss.itemContent || styles.arrayList.itemContent">
-      <div :class="styles.arrayList.noData">
+      <div :class="overrideCss.noData || styles.arrayList.noData">
         {{ options.noDataMsg || "No data" }}
       </div>
     </div>

@@ -28,7 +28,7 @@
     <select
       v-else
       :id="control.id + '-input'"
-      :class="styles.control.select"
+      :class="overrideCss.select || styles.control.select"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
@@ -41,7 +41,7 @@
         :key="optionElement.value"
         :value="optionElement.value"
         :label="optionElement.label"
-        :class="styles.control.option"
+        :class="overrideCss.option || styles.control.option"
         :name="control.path"
       >
       </option
