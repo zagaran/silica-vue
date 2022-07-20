@@ -1,7 +1,9 @@
 import {inject} from "@vue/composition-api";
+import {getOverrideCss, getWrapperOverrideCss} from "../components/utils/get-override-css";
 
 export function useSilicaControl(props) {
     // this hook should only be used to wrap useVanillaControl
+    const {control} = props
     const originalOnChange = props.onChange;
     const handler = inject('handleFieldUpdated', null);
     props.onChange = function (ev) {
@@ -12,6 +14,16 @@ export function useSilicaControl(props) {
         }
         return originalOnChange(ev);
     };
-    
-    return props;
+    console.log(getWrapperOverrideCss(control))
+    return {overrideCss: getOverrideCss(control), wrapperOverrideCss: getWrapperOverrideCss(control), ...props};
+}
+
+export function useSilicaLayout(props) {
+    const {layout} = props
+    return {overrideCss: getOverrideCss(layout), ...props}
+}
+
+export function useSilicaArrayControl(props) {
+    const {control: arrayControl} = props
+    return {overrideCss: getOverrideCss(arrayControl), ...props}
 }

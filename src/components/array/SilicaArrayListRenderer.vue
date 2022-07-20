@@ -1,11 +1,11 @@
 <template>
-  <fieldset v-if="control.visible" :class="styles.arrayList.root">
-    <div :class="styles.arrayList.legend">
-      <label :class="styles.arrayList.label">
+  <fieldset v-if="control.visible" :class="overrideCss.root || styles.arrayList.root">
+    <div :class="overrideCss.legend || styles.arrayList.legend">
+      <label :class="overrideCss.label || styles.arrayList.label">
         {{ control.label }}
       </label>
       <button
-        :class="styles.arrayList.addButton"
+        :class="overrideCss.addButton || styles.arrayList.addButton"
         @click="addButtonClick"
         type="button"
         v-if="options.enableAddButton"
@@ -17,7 +17,7 @@
     <div
       v-for="(element, index) in control.data"
       :key="`${control.path}-${index}`"
-      :class="styles.arrayList.itemWrapper"
+      :class="overrideCss.itemWrapper || styles.arrayList.itemWrapper"
     >
       <silica-array-list-element
         :show-sort-button="options.showSortButtons"
@@ -29,7 +29,7 @@
         :enable-delete="canDeleteItem"
         :delete="removeItems(control.path, [index])"
         :label="childLabelForIndex(index)"
-        :styles="styles"
+        :styles="overrideCss.listElementOverrides || styles"
         :static-title="options.staticTitle"
       >
         <dispatch-renderer
@@ -42,7 +42,7 @@
         />
       </silica-array-list-element>
     </div>
-    <div v-if="noData" :class="styles.arrayList.itemContent">
+    <div v-if="noData" :class="overrideCss.itemContent || styles.arrayList.itemContent">
       <div :class="styles.arrayList.noData">
         {{ options.noDataMsg || "No data" }}
       </div>
@@ -68,6 +68,7 @@ import {
 import { useVanillaArrayControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
 import {schemaTypeContains} from "../utils/schema-utils";
+import {useSilicaArrayControl} from "../../composition/useSilicaControl";
 
 const controlRenderer = defineComponent({
   name: "silica-array-list-renderer",
@@ -79,7 +80,7 @@ const controlRenderer = defineComponent({
     ...silicaDefaultControlProps
   },
   setup(props) {
-    return useVanillaArrayControl(useJsonFormsArrayControl(props));
+    return useSilicaArrayControl(useVanillaArrayControl(useJsonFormsArrayControl(props)));
   },
   computed: {
     noData() {

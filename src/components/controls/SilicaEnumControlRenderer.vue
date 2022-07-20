@@ -1,14 +1,14 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
   >
     <select
       :id="control.id + '-select'"
-      :class="styles.control.select"
+      :class="overrideCss.select || styles.control.select"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"
@@ -16,7 +16,7 @@
       @focus="isFocused = true"
       @blur="isFocused = false"
     >
-      <option value="" key="empty" :name="control.path" :class="styles.control.option"/>
+      <option value="" key="empty" :name="control.path" :class="overrideCss.option || styles.control.option"/>
       <option
         v-for="optionElement in control.options"
         :key="optionElement.value"

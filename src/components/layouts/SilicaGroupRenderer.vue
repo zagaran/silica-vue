@@ -1,12 +1,12 @@
 <template>
-  <fieldset v-if="layout.visible" :class="styles.group.root">
-    <legend v-if="layout.uischema.label" :class="styles.group.label">
+  <fieldset v-if="layout.visible" :class="overrideCss.root || styles.group.root">
+    <legend v-if="layout.uischema.label" :class="overrideCss.label || styles.group.label">
       {{ layout.uischema.label }}
     </legend>
     <div
       v-for="(element, index) in layout.uischema.elements"
       :key="`${layout.path}-${index}`"
-      :class="styles.group.item"
+      :class="overrideCss.item || styles.group.item"
     >
       <dispatch-renderer
         :schema="layout.schema"
@@ -34,6 +34,7 @@ import {
 } from "@jsonforms/vue2";
 import { silicaDefaultLayoutProps } from "../utils";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
+import {useSilicaLayout} from "../../composition/useSilicaControl";
 
 const layoutRenderer = defineComponent({
   name: "silica-group-renderer",
@@ -44,7 +45,7 @@ const layoutRenderer = defineComponent({
     ...silicaDefaultLayoutProps
   },
   setup(props) {
-    return useVanillaLayout(useJsonFormsLayout(props));
+    return useSilicaLayout(useVanillaLayout(useJsonFormsLayout(props)));
   }
 });
 

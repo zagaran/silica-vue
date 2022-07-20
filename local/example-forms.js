@@ -64,13 +64,24 @@ export const formTypes = [
         },
         uischema: {
             "type": "VerticalLayout",
+            'options': {
+                'overrideCss': {'root': 'bg-warning'}
+            },
             "elements": [
                 {
                     "type": "HorizontalLayout",
                     "elements": [
                         {
                             "type": "Control",
-                            "scope": "#/properties/name"
+                            "scope": "#/properties/name",
+                            "options": {
+                                'overrideCss': 'bg-success',
+                                'wrapperOverrideCss': {
+                                     control: {
+                                         root: 'bg-danger'
+                                     }
+                                }
+                            }
                         },
                         {
                             "type": "Control",
@@ -273,7 +284,7 @@ export const formTypes = [
                     "type": "Control",
                     "scope": "#/properties/multilineString",
                     "options": {
-                        "multi": true
+                        "multi": true,
                     }
                 },
                 {

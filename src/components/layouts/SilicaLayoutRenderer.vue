@@ -1,9 +1,9 @@
 <template>
-  <div v-if="layout.visible" :class="layoutClassObject.root">
+  <div v-if="layout.visible" :class="overrideCss.root || layoutClassObject.root">
     <div
       v-for="(element, index) in layout.uischema.elements"
       :key="`${layout.path}-${index}`"
-      :class="layoutClassObject.item"
+      :class="overrideCss.item || layoutClassObject.item"
     >
       <dispatch-renderer
         :schema="layout.schema"
@@ -29,6 +29,7 @@ import {
 } from "@jsonforms/vue2";
 import { silicaDefaultLayoutProps } from "../utils";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
+import {useSilicaLayout} from "../../composition/useSilicaControl";
 
 const layoutRenderer = defineComponent({
   name: "silica-layout-renderer",
@@ -39,7 +40,7 @@ const layoutRenderer = defineComponent({
     ...silicaDefaultLayoutProps
   },
   setup(props) {
-    return useVanillaLayout(useJsonFormsLayout(props));
+    return useSilicaLayout(useVanillaLayout(useJsonFormsLayout(props)));
   },
   computed: {
     layoutClassObject() {

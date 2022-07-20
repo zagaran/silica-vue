@@ -1,20 +1,20 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
   >
-    <fieldset v-if="control.uischema.options.format === 'radio'" :class="styles.control.wrapper">
+    <fieldset v-if="control.uischema.options.format === 'radio'" :class="overrideCss.wrapper || styles.control.wrapper">
         <label v-for="optionElement in control.options"         
-            :key="optionElement.value" :class="styles.control.label.radio || styles.control.option">
+            :key="optionElement.value" :class="overrideCss.radio || styles.control.label.radio || styles.control.option">
           <input
               :id="control.id + '-input'"
               type="radio"
               :value="optionElement.value"
               :checked="control.data === optionElement.value"
-              :class="styles.control.input.radio || styles.control.input"
+              :class="overrideCss.input || styles.control.input.radio || styles.control.input"
               :disabled="!control.enabled || control.schema.readOnly"
               :name="control.path"
               :autofocus="appliedOptions.focus"

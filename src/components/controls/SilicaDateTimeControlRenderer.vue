@@ -1,7 +1,7 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="control.schema.hidden"
@@ -10,7 +10,7 @@
       type="datetime-local"
       :id="control.id + '-input'"
       :name="control.path"
-      :class="styles.control.input.default || styles.control.input"
+      :class="overrideCss || styles.control.input.default || styles.control.input"
       :value="dataTime"
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"

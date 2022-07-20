@@ -1,7 +1,7 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
@@ -9,7 +9,7 @@
     <textarea
       :id="control.id + '-input'"
       :name="control.path"
-      :class="styles.control.textarea"
+      :class="overrideCss || styles.control.textarea"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"
       :autofocus="appliedOptions.focus"

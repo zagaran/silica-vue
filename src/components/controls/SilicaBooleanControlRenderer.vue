@@ -1,7 +1,7 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
@@ -9,7 +9,7 @@
     <input
       type="checkbox"
       :name="control.path"
-      :class="styles.control.input.boolean || styles.control.input.default || styles.control.input"
+      :class="overrideCss || styles.control.input.boolean || styles.control.input.default || styles.control.input"
       :id="control.id + '-input'"
       :checked="!!control.data"
       :disabled="!control.enabled || control.schema.readOnly"

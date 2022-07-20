@@ -1,14 +1,14 @@
 <template>
   <control-wrapper
     v-bind="controlWrapper"
-    :styles="styles"
+    :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
     v-show="!control.schema.hidden"
   >
     <input
       :id="control.id + '-input'"
-      :class="styles.control.input.default || styles.control.input"
+      :class="overrideCss || styles.control.input.default || styles.control.input"
       :name="control.path"
       :value="control.data"
       :disabled="!control.enabled || control.schema.readOnly"
