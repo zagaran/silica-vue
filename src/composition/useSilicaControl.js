@@ -14,7 +14,6 @@ export function useSilicaControl(props) {
         }
         return originalOnChange(ev);
     };
-    console.log(getWrapperOverrideCss(control))
     return {overrideCss: getOverrideCss(control), wrapperOverrideCss: getWrapperOverrideCss(control), ...props};
 }
 
