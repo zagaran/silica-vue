@@ -53,7 +53,7 @@ import {
   uiTypeIs
 } from "@jsonforms/core";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 
 const categorizationRenderer = defineComponent({
   name: "categorization-renderer",

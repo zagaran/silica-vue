@@ -1,4 +1,4 @@
-import {inject} from "@vue/composition-api";
+import {inject} from "vue";
 import {getOverrideCss, getWrapperOverrideCss} from "../components/utils/get-override-css";
 
 export function useSilicaControl(props) {
@@ -9,7 +9,7 @@ export function useSilicaControl(props) {
     props.onChange = function (ev) {
         // this emission is what we can listen for at the top level of the form
         // to know when a user has modified a field with an error from Django on it
-        if (handler) {
+        if (handler != null) {
             handler(props.control.value.path, ev);
         }
         return originalOnChange(ev);

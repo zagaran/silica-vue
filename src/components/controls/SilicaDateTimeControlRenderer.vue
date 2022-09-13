@@ -29,7 +29,7 @@ import {
 } from "@jsonforms/core";
 import { silicaDefaultControlProps } from "../utils";
 import { SilicaControlWrapper as ControlWrapper } from "./index";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import {useSilicaControl} from "../../composition";

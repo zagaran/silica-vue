@@ -1,6 +1,6 @@
 {
   "name": "silica-vue",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "description": "A Vue implementation of JSONForms.io's component library specifically to support rendering of silica-django components.",
   "author": "NoahHoughton",
   "private": false,
@@ -32,26 +32,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@jsonforms/core": "^3.0.0-beta.1",
-    "@jsonforms/vue2": "^3.0.0-beta.1",
-    "@jsonforms/vue2-vanilla": "^3.0.0-beta.1",
+    "@jsonforms/core": "^3.0.0-rc.1",
+    "@jsonforms/vue2": "^3.0.0-rc.1",
+    "@jsonforms/vue2-vanilla": "^3.0.0-rc.1",
     "ajv": "^8.11.0",
     "ajv-errors": "^3.0.0",
-    "lodash": "^4.17.21"
+    "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
+    "vue-template-compiler": "^2.7.10"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.4.9",
-    "vue": "^2.6.14"
+    "vue": "^2.7.10"
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.4.9",
     "core-js": "^3.21.1",
-    "js-cookie": "^3.0.1",
     "unplugin-auto-import": "^0.6.1",
     "vite": "^2.8.6",
     "vite-plugin-vue2": "^1.9.3",
-    "vue": "^2.6.14",
-    "vue-json-viewer": "^2.2.22",
-    "vue-template-compiler": "^2.2.0"
+    "vue": "^2.7.10",
+    "vue-json-viewer": "^2.2.22"
   }
 }

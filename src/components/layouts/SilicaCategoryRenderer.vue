@@ -23,7 +23,7 @@
 <script>
 // TODO: make this work with typescript
 
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {
   DispatchRenderer,
   useJsonFormsLayout

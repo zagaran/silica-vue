@@ -1,11 +1,13 @@
 // https://dev.to/siegerts/consolidating-components-into-a-vue-js-plugin-ndc
 import * as components from "./components";
+import {version} from '../package.json';
 const SilicaVue = {
   install(Vue, options={}) {
     for (const componentName in components) {
       const component = components[componentName];
       Vue.component(componentName, component);
     }
+    console.info("Installed Silica-Vue@" + version)
   }
 }
 export default SilicaVue;

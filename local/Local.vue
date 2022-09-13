@@ -100,7 +100,7 @@
 
 
 <script>
-import {defineComponent} from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {JsonForms} from "@jsonforms/vue2";
 import {bootstrap4Styles, silicaRenderers} from "../src/export";
 import "@jsonforms/vue2-vanilla/vanilla.css";

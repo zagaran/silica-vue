@@ -38,7 +38,7 @@
 
 <!-- TODO: make this work with typescript -->
 <script>
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {classes} from "@jsonforms/vue2-vanilla";
 
 const listItem = defineComponent({

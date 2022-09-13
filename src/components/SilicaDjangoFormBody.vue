@@ -13,11 +13,11 @@
 import {JsonForms} from "@jsonforms/vue2";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
 import {silicaRenderers} from "./renderers";
-import {defineComponent} from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {createAjv} from "@jsonforms/core";
 import ajvErrors from "ajv-errors";
 
-const ajv = ajvErrors(createAjv({useDefaults: true}));
+const ajv = ajvErrors(createAjv({useDefaults: true}))
 
 export default defineComponent({
   name: "silica-django-form-body",
@@ -27,7 +27,7 @@ export default defineComponent({
     customRenderers: {type: Array, required: false},
     styles: {type: Object, required: false},
     onChange: {type: Function, required: false},
-    validator: {type: Object, required: false},
+    validator: {type: Object, required: false, default: () => ajv},
     data: {type: Object, required: true},
     schema: {type: Object, required: true},
     uischema: {type: Object, required: true},
@@ -43,26 +43,26 @@ export default defineComponent({
   },
   methods: {
     handleChange(ev) {
-      this.$emit('update:data', ev.data);
+      this.$emit('update:data', ev.data)
       if (this.onChange) {
-        this.onChange(ev);
+        this.onChange(ev)
       }
     }
   },
   computed: {
     formRenderers: function () {
-      let renderers = [...silicaRenderers];
-      let customRenderers = this.customRenderers || window.SilicaCustomRenderers || [];
+      let renderers = [...silicaRenderers]
+      let customRenderers = this.customRenderers || window.SilicaCustomRenderers || []
       if (customRenderers) {
-        renderers = [...renderers, ...customRenderers];
+        renderers = [...renderers, ...customRenderers]
       }
-      return Object.freeze(renderers);
+      return Object.freeze(renderers)
     },
     _validator: function() {
-      return this.validator || window.SilicaValidator || ajv;
+      return this.validator || window.SilicaValidator
     }
   }
-});
+})
 </script>
 
 <style scoped></style>

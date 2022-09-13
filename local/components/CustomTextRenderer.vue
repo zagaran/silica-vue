@@ -24,10 +24,10 @@
 
 <script>
 import { customSilicaRendererTester, SilicaControlWrapper as ControlWrapper, silicaDefaultControlProps } from "../../src/export";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
-import {useSilicaControl} from "../../src/composition/useSilicaControl";
+import { useSilicaControl } from "../../src/composition";
 
 const controlRenderer = defineComponent({
   name: "silica-custom-text-renderer",

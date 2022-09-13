@@ -40,7 +40,7 @@
 <script>
 import SilicaDjangoFormBody from "./SilicaDjangoFormBody.vue";
 import Cookies from "js-cookie";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
 import * as _ from "lodash";
 import {flattenObj} from "./utils";
@@ -82,6 +82,7 @@ export default defineComponent({
       uischema_: {},
       djangoErrors_: {}, 
       customElementsContent_: {},
+      loadComplete: false,
     }
   },
   watch: {
@@ -158,6 +159,7 @@ export default defineComponent({
     } else {
       this.customElementsContent_ = this.customElementsContent;
     }
+    this.loadComplete = true;
   },
   computed: {
     csrfTokenValue() {

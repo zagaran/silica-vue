@@ -10,7 +10,7 @@ import {
   uiTypeIs
 } from "@jsonforms/core";
 import { silicaDefaultLayoutProps } from "../utils";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {
   DispatchRenderer,
   useJsonFormsLayout

@@ -60,7 +60,7 @@ import {
   schemaMatches,
 } from "@jsonforms/core";
 import SilicaArrayListElement from "./SilicaArrayListElement.vue";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import {
   DispatchRenderer,
   useJsonFormsArrayControl

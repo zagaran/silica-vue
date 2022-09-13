@@ -55,7 +55,7 @@ import {
   isOneOfEnumControl
 } from "@jsonforms/core";
 import { SilicaControlWrapper as ControlWrapper } from "./index";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import { silicaDefaultControlProps } from "../utils";
 import { useJsonFormsOneOfEnumControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";

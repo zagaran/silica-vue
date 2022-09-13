@@ -6,7 +6,7 @@
 import {
   rankWith, uiTypeIs
 } from "@jsonforms/core";
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "vue";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { silicaDefaultControlProps } from "../utils";
 
