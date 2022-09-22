@@ -1,8 +1,5 @@
 <template>
   <fieldset v-if="layout.visible" :class="overrideCss.root || styles.category.root">
-    <legend v-if="layout.uischema.label" :class="overrideCss.label || styles.category.label">
-      {{ layout.uischema.label }}
-    </legend>
     <div
       v-for="(element, index) in layout.uischema.elements"
       :key="`${layout.path}-${index}`"

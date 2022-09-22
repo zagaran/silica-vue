@@ -90,19 +90,33 @@ const controlRenderer = defineComponent({
       return this.control.uischema?.options || {}; 
     },
     canAddItem() {
-      if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('maxItems')) {
+      var obj = this.getAtPath(this.control.rootSchema.properties, this.control.path);
+      if (obj && obj.hasOwnProperty('maxItems')) {
         return this.control.data.length + 1 <= this.control.rootSchema.properties[this.control.path].maxItems;
       }
       return true;
     },
     canDeleteItem() {
-      if (this.control.rootSchema.properties[this.control.path].hasOwnProperty('minItems')) {
+      var obj = this.getAtPath(this.control.rootSchema.properties, this.control.path);
+      if (obj && obj.hasOwnProperty('minItems')) {
         return this.control.data.length - 1 >= this.control.rootSchema.properties[this.control.path].minItems;
       }
       return true;
     }
   },
   methods: {
+    getAtPath(obj, path, delim='.') {
+      const keys = path.split(delim)
+      try {
+        var acc = obj;
+        for (let key of keys) {
+          acc = acc[key];
+        }
+        return acc;        
+      } catch {
+        return null;
+      }
+    },
     composePaths,
     createDefaultValue,
     addButtonClick() {
