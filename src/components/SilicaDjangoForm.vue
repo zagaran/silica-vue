@@ -135,48 +135,42 @@ export default defineComponent({
   },
   mounted() {
     // since data needs to be reactive, we load it to the data object in mounted() instead of writing a computed property
-    document.onreadystatechange = () => {
-      if (document.readyState === 'complete') {
-        console.log('form')
-        console.log(document.getElementById(this.id + "-data"), !!!this.data, this.data);
-        if (document.getElementById(this.id + "-data") && !!!this.data) {
-          this.ingestData('data_', JSON.parse(
-              document.getElementById(this.id + "-data").textContent
-          ));
-        } else {
-          this.data_ = this.data;
-        }
-        if (document.getElementById(this.id + "-ui-schema") && !!!this.uischema) {
-          this.ingestData('uischema_', JSON.parse(
-              document.getElementById(this.id + "-ui-schema").textContent
-          ));
-        } else {
-          this.uischema_ = this.uischema;
-        }
-        if (document.getElementById(this.id + "-schema") && !!!this.schema) {
-          this.ingestData('schema_', JSON.parse(
-              document.getElementById(this.id + "-schema").textContent
-          ));
-        } else {
-          this.schema_ = this.schema;
-        }
-        if (document.getElementById(this.id + "-errors") && !!!this.djangoErrors) {
-          this.djangoErrors_ = JSON.parse(
-              document.getElementById(this.id + "-errors").textContent
-          );
-        } else {
-          this.djangoErrors_ = this.djangoErrors;
-        }
-        if (document.getElementById(this.id + "-custom-elements") && !!!this.customElementsContent) {
-          this.customElementsContent_ = JSON.parse(
-              document.getElementById(this.id + "-custom-elements").textContent
-          );
-        } else {
-          this.customElementsContent_ = this.customElementsContent;
-        }
-        this.loadComplete = true;
-      }
+    if (document.getElementById(this.id + "-data") && !!!this.data) {
+      this.ingestData('data_', JSON.parse(
+          document.getElementById(this.id + "-data").textContent
+      ));
+    } else {
+      this.data_ = this.data;
     }
+    if (document.getElementById(this.id + "-ui-schema") && !!!this.uischema) {
+      this.ingestData('uischema_', JSON.parse(
+          document.getElementById(this.id + "-ui-schema").textContent
+      ));
+    } else {
+      this.uischema_ = this.uischema;
+    }
+    if (document.getElementById(this.id + "-schema") && !!!this.schema) {
+      this.ingestData('schema_', JSON.parse(
+          document.getElementById(this.id + "-schema").textContent
+      ));
+    } else {
+      this.schema_ = this.schema;
+    }
+    if (document.getElementById(this.id + "-errors") && !!!this.djangoErrors) {
+      this.djangoErrors_ = JSON.parse(
+          document.getElementById(this.id + "-errors").textContent
+      );
+    } else {
+      this.djangoErrors_ = this.djangoErrors;
+    }
+    if (document.getElementById(this.id + "-custom-elements") && !!!this.customElementsContent) {
+      this.customElementsContent_ = JSON.parse(
+          document.getElementById(this.id + "-custom-elements").textContent
+      );
+    } else {
+      this.customElementsContent_ = this.customElementsContent;
+    }
+    this.loadComplete = true;
   },
   computed: {
     csrfTokenValue() {
