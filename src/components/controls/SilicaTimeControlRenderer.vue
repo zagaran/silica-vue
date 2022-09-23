@@ -1,5 +1,5 @@
 <template>
-  <control-wrapper
+  <silica-control-wrapper
     v-bind="controlWrapper"
     :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
@@ -19,7 +19,7 @@
       @focus="isFocused = true"
       @blur="isFocused = false"
     />
-  </control-wrapper>
+  </silica-control-wrapper>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ import {
   isTimeControl,
   rankWith,
 } from "@jsonforms/core";
-import { SilicaControlWrapper as ControlWrapper } from "./index";
+import { SilicaControlWrapper } from "./index";
 import { defineComponent } from "vue";
 import { silicaDefaultControlProps } from "../utils/silica-shims";
 import { useJsonFormsControl } from "@jsonforms/vue2";
@@ -37,7 +37,7 @@ import {useSilicaControl} from "../../composition";
 const controlRenderer = defineComponent({
   name: "silica-time-control-renderer",
   components: {
-    ControlWrapper
+    SilicaControlWrapper
   },
   props: {
     ...silicaDefaultControlProps

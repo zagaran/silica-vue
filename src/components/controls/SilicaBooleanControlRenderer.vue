@@ -1,5 +1,5 @@
 <template>
-  <control-wrapper
+  <silica-control-wrapper
     v-bind="controlWrapper"
     :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
@@ -19,7 +19,7 @@
       @focus="isFocused = true"
       @blur="isFocused = false"
     />
-  </control-wrapper>
+  </silica-control-wrapper>
 </template>
 
 <script>
@@ -28,7 +28,7 @@ import {
   schemaMatches
 } from "@jsonforms/core";
 import { defineComponent } from "vue";
-import { SilicaControlWrapper as ControlWrapper } from "./index";
+import { SilicaControlWrapper } from "./index";
 import { useJsonFormsControl } from "@jsonforms/vue2";
 import { useVanillaControl } from "@jsonforms/vue2-vanilla";
 import { silicaDefaultControlProps } from "../utils";
@@ -38,7 +38,7 @@ import {schemaTypeContains} from "../utils/schema-utils";
 const controlRenderer = defineComponent({
   name: "silica-boolean-control-renderer",
   components: {
-    ControlWrapper
+    SilicaControlWrapper
   },
   props: {
     ...silicaDefaultControlProps

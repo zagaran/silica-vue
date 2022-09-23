@@ -49,6 +49,9 @@ export default defineComponent({
       }
     }
   },
+  mounted() {
+    console.log('form body')
+  },
   computed: {
     formRenderers: function () {
       let renderers = [...silicaRenderers]

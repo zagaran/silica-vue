@@ -1,5 +1,5 @@
 <template>
-  <control-wrapper
+  <silica-control-wrapper
     v-bind="controlWrapper"
     :styles="wrapperOverrideCss || styles"
     :isFocused="isFocused"
@@ -46,7 +46,7 @@
       >
       </option
     ></select>
-  </control-wrapper>
+  </silica-control-wrapper>
 </template>
 
 <script>
@@ -54,7 +54,7 @@ import {
   rankWith,
   isOneOfEnumControl
 } from "@jsonforms/core";
-import { SilicaControlWrapper as ControlWrapper } from "./index";
+import { SilicaControlWrapper } from "./index";
 import { defineComponent } from "vue";
 import { silicaDefaultControlProps } from "../utils";
 import { useJsonFormsOneOfEnumControl } from "@jsonforms/vue2";
@@ -64,7 +64,7 @@ import {useSilicaControl} from "../../composition";
 const controlRenderer = defineComponent({
   name: "silica-enum-oneof-control-renderer",
   components: {
-    ControlWrapper
+    SilicaControlWrapper
   },
   props: {
     ...silicaDefaultControlProps
