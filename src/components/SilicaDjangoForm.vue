@@ -200,15 +200,11 @@ export default defineComponent({
       // To make sure that data is reactive from the start, we use Vue.set() to dynamically set up the data
       // objects. Because the data can be nested, we use lodash's setWith, which allows us to more easily set nested 
       // values.
-      console.log(dataKey, objToCopy);
       let self = this;
       if (!_.isEmpty(objToCopy)) {
         const preppedData = flattenObj(objToCopy);
-        console.log(preppedData)
         for (let key of Object.keys(preppedData)) {
-          console.log('key', key)
           _.setWith(self[dataKey], key, preppedData[key], (nsValue, key, nsObject) => {
-            console.log(nsObject, key, nsValue)
             return self.$set(nsObject, key, nsValue)
           })
         }
