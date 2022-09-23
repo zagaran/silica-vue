@@ -5,7 +5,7 @@
     </legend>
     <div>
       <button
-        v-for="element in layout.uischema.elements"
+        v-for="element in visibleCategories"
         type="button"
         :key="element.label"
         @click="() => setActiveCategory(element)"
@@ -48,12 +48,13 @@ import {
 } from "@jsonforms/vue2";
 import {
   and,
-  isLayout,
+  isLayout, isVisible,
   rankWith,
   uiTypeIs
 } from "@jsonforms/core";
 import { useVanillaLayout } from "@jsonforms/vue2-vanilla";
 import { defineComponent } from "vue";
+import {useAjv} from "../utils/composition";
 
 const categorizationRenderer = defineComponent({
   name: "categorization-renderer",
@@ -72,11 +73,20 @@ const categorizationRenderer = defineComponent({
         : this.uischema.elements[0].label
     };
   },
+  computed: {
+    visibleCategories() {
+      return (this.layout.uischema).elements.filter(
+        (category) =>
+          isVisible(category, this.layout.data, this.layout.path, this.ajv)
+      );
+    },
+  },
   props: {
     ...rendererProps()
   },
   setup(props) {
-    return useVanillaLayout(useJsonFormsLayout(props));
+    const ajv = useAjv();
+    return {...useVanillaLayout(useJsonFormsLayout(props)), ajv};
   }
 });
 
