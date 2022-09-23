@@ -3,7 +3,7 @@
     <legend v-if="layout.uischema.label" :class="styles.categorization.label">
       {{ layout.uischema.label }}
     </legend>
-    <div>
+    <div :class="styles.categorization.selectorContainer">
       <button
         v-for="element in visibleCategories"
         type="button"
@@ -14,7 +14,7 @@
             ' ' +
             (activeCategory === element.label
               ? styles.categorization.activeCategory
-              : '')
+              : styles.categorization.category)
         "
       >
         {{ element.label }}
@@ -73,9 +73,16 @@ const categorizationRenderer = defineComponent({
         : this.uischema.elements[0].label
     };
   },
+  watch: {
+    visibleCategories(newVal) {
+      if (newVal.filter(c => c.label === this.activeCategory).length < 1) {
+        this.setActiveCategory(newVal[0])
+      }
+  }
+  },
   computed: {
     visibleCategories() {
-      return (this.layout.uischema).elements.filter(
+      return this.layout.uischema.elements.filter(
         (category) =>
           isVisible(category, this.layout.data, this.layout.path, this.ajv)
       );

@@ -8,20 +8,20 @@ export const bootstrap3Styles = {
     error: "alert alert-danger",
     textarea: "text-area",
     select: "select",
-    option: "option"
+    option: "option",
   },
   verticalLayout: {
     root: "vertical-layout",
-    item: "vertical-layout-item"
+    item: "vertical-layout-item",
   },
   horizontalLayout: {
     root: "horizontal-layout",
-    item: "horizontal-layout-item"
+    item: "horizontal-layout-item",
   },
   group: {
     root: "group",
     label: "group-label",
-    item: "group-item"
+    item: "group-item",
   },
   arrayList: {
     root: "array-list",
@@ -37,22 +37,24 @@ export const bootstrap3Styles = {
     itemExpanded: "expanded",
     itemMoveUp: "array-list-item-move-up",
     itemMoveDown: "array-list-item-move-down",
-    itemDelete: "array-list-item-delete"
+    itemDelete: "array-list-item-delete",
   },
   label: {
-    root: "label-element"
+    root: "label-element",
   },
   categorization: {
     label: "categorization-label",
     root: "categorization-root",
     item: "categorization-item",
     selector: "btn",
-    activeCategory: "btn btn-info"
+    selectorContainer: "",
+    activeCategory: "btn-info",
+    category: "btn-default",
   },
   category: {
     label: "category-label",
     root: "category-root",
-    item: "category-item"
+    item: "category-item",
   }
 };
 
@@ -62,31 +64,31 @@ export const bootstrap4Styles = {
     wrapper: "w-100",
     label: {
       default: "form-label",
-      radio: "w-100"
+      radio: "w-100",
     },
     description: "description",
     input: {
       default: "form-control",
       boolean: "form-input",
-      submit: "btn btn-success"
+      submit: "btn btn-success",
     },
     error: "text-danger",
     textarea: "form-control",
     select: "select",
-    option: "option"
+    option: "option",
   },
   verticalLayout: {
     root: "vertical-layout my-2 ",
-    item: "vertical-layout-item my-1"
+    item: "vertical-layout-item my-1",
   },
   horizontalLayout: {
     root: "horizontal-layout mx-2",
-    item: "horizontal-layout-item mx-1"
+    item: "horizontal-layout-item mx-1",
   },
   group: {
     root: "group",
     label: "group-label",
-    item: "group-item"
+    item: "group-item",
   },
   arrayList: {
     root: "card my-2",
@@ -102,21 +104,23 @@ export const bootstrap4Styles = {
     itemExpanded: "expanded",
     itemMoveUp: "array-list-item-move-up",
     itemMoveDown: "array-list-item-move-down",
-    itemDelete: "btn btn-danger"
+    itemDelete: "btn btn-danger",
   },
   label: {
-    root: "label-element"
+    root: "label-element",
   },
   categorization: {
     label: "categorization-label",
-    root: "categorization-root",
+    root: "categorization-root mx-2",
     item: "categorization-item",
-    selector: "btn",
-    activeCategory: "btn btn-info"
+    selector: "btn mr-1",
+    selectorContainer: "",
+    activeCategory: "btn-dark",
+    category: "btn-light",
   },
   category: {
     label: "category-label",
     root: "category-root",
-    item: "category-item"
+    item: "category-item",
   }
 };

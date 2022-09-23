@@ -23,3 +23,7 @@ You may choose to install `silica-vue` as an NPM library and build it yourself b
 
 ## Documentation
 There is a combined documentation repository for all Silica libraries located at [Silica-Docs](https://www.github.com/zagaran/silica-docs).
+
+
+## TODO
+- [ ] Categorization Stepper variant
