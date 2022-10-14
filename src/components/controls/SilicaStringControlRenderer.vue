@@ -46,7 +46,7 @@ const controlRenderer = defineComponent({
     return useSilicaControl(useVanillaControl(useJsonFormsControl(props)));
   },
   inject: {
-    handleFieldUpdated: {
+    onFieldUpdated: {
       default: () => null
     }
   },

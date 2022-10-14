@@ -75,7 +75,7 @@ export default defineComponent({
     djangoErrors: {
       default: () => {return {}}
     },
-    handleFieldUpdated: {
+    onFieldUpdated: {
       default: () => function() {}
     }
   },

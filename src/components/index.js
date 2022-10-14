@@ -23,3 +23,4 @@ export {
 export { SilicaLabelRenderer } from "./label";
 export { default as SilicaDjangoForm } from "./SilicaDjangoForm.vue";
 export { default as SilicaDjangoFormBody } from "./SilicaDjangoFormBody.vue";
+export { default as SilicaSubmitButton } from "./SilicaSubmitButton.vue";

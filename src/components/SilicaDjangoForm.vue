@@ -17,11 +17,10 @@
         :data.sync="data_"
         :uischema.sync="uischema_"
         :schema.sync="schema_"
-        :submit-text="submitText || 'submit'"
         :validator="validator"
         :django-errors.sync="djangoErrors_"
         :custom-elements-content.sync="customElementsContent_"
-        @field-modified="handleFieldUpdated"
+        @field-modified="onFieldUpdated"
     />
     <slot name="post-body"></slot>
     <input
@@ -30,12 +29,7 @@
         name="csrfmiddlewaretoken"
         :value="csrfTokenValue"
     />
-    <div :class="_styles.verticalLayout.root" v-if="addSubmitButton">
-      <div :class="_styles.verticalLayout.item">
-        <input type="submit" :value="submitText || 'Submit'"
-               :class="_styles.control.input.submit || _styles.control.input.default || _styles.control.input || null"/>
-      </div>
-    </div>
+    <SilicaSubmitButton v-if="addSubmitButton" :styles="_styles" :submit-text="submitText" />
   </form>
   <div v-else>
     <h1>Loading...</h1>
@@ -44,6 +38,7 @@
 
 <script>
 import SilicaDjangoFormBody from "./SilicaDjangoFormBody.vue";
+import SilicaSubmitButton from "./SilicaSubmitButton.vue";
 import Cookies from "js-cookie";
 import {defineComponent} from "vue";
 import {defaultStyles} from "@jsonforms/vue2-vanilla";
@@ -53,14 +48,14 @@ import {updateErrors} from "@jsonforms/core";
 
 export default defineComponent({
   name: "silica-django-form",
-  components: {SilicaDjangoFormBody},
+  components: {SilicaDjangoFormBody, SilicaSubmitButton},
   /* 
     Django loads data to JS by creating a script element with an id; we have to read that data in, hence why we are
     passing id strings rather than raw data
    */
   props: {
     id: {type: String, required: true},
-    submitText: {type: String, required: false},
+    submitText: {type: String, required: false, default: 'Submit'},
     customRenderers: {type: Array, required: false},
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onChange: {
@@ -129,7 +124,7 @@ export default defineComponent({
   provide() {
     return {
       djangoErrors: this.djangoErrors_,
-      handleFieldUpdated: this.handleFieldUpdated,
+      onFieldUpdated: this.onFieldUpdated,
       customElementsContent: this.customElementsContent_,
     }
   },
@@ -190,7 +185,7 @@ export default defineComponent({
     getFormData() {
       return this.$refs[this.id].formData;
     },
-    handleFieldUpdated(path) {
+    onFieldUpdated(path) {
       // if a field has been updated, we can clear the Django-specific error for it
       if (this.djangoErrors_ && this.djangoErrors_.hasOwnProperty(path)) {
         delete this.djangoErrors_[path];
